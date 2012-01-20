@@ -1,0 +1,69 @@
+
+Copyright (C) 2011 ripperX developers (http://sourceforge.net/projects/ripperx/)
+
+See AUTHORS for a full list of contributors.
+
+  Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.  This file is offered as-is,
+without warranty of any kind.
+
+ripperX plugin tester v0.1
+
+This document describes what ripperX_plugin_tester is and how to use it.
+
+1. ripperX_plugin_tester?
+
+ ripperX_plugin_tester is a program with which one can test if a plugin he/she
+wrote works fine. It is essentially made from the code segments from ripperX
+which handles execution of ripper/encoder/plugin and the parsing of output
+from plugin. So if a plugin looks fine when tested with ripperX_plugin_tester,
+it should work with ripperX.
+
+
+2. How do I use it?
+
+ The syntax is
+
+ $ ripperX_plugin_tester "ripper/encoder command" "plugin command"
+
+ for example, to test cdparanoia plugin.
+
+ $ ripperX_plugin_tester "cdparanoia 4" "ripperX_plugin-cdparanoia 31987 4215
+
+ After executing ripperX_plugin_tester like above, if everything goes ok,
+you'll see output like this
+
+***Executing "cdparanoia 4"
+with plugin "./ripperX_plugin-cdparanoia 31987 4215"
+
+*** No report available from plugin. Ctrl-C to stop
+*** PLUGIN_MSG_PARSE_ERR returned
+
+*** No report available from plugin. Ctrl-C to stop
+*** PLUGIN_MSG_PARSE_ERR returned
+
+*** No report available from plugin. Ctrl-C to stop
+*** PLUGIN_MSG_PARSE_ERR returned
+
+*** No report available from plugin. Ctrl-C to stop
+*** PLUGIN_MSG_PARSE_ERR returned
+
+*** No report available from plugin. Ctrl-C to stop
+*** PLUGIN_MSG_PARSE_ERR returned
+
+*** Output read from plugin : [P 0.055991 "-->                           "]
+Report type : progress, Progress : 0.055991,
+Msg : -->                           
+
+*** Output read from plugin : [P 0.092527 "-+->                          "]
+Report type : progress, Progress : 0.092527,
+Msg : -+->                          
+
+ If something goes wrong, it will print out error msgs. The error msgs are
+quite easy. I think you can figure what's wrong when an error msg appears.
+
+==============================================================================
+						    ripperX_plugin_tester v0.1
+								    TeJun, Huh
+						     wineking@adam.kaist.ac.kr

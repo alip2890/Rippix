@@ -1,0 +1,89 @@
+
+Copyright (C) 2011 ripperX developers (http://sourceforge.net/projects/ripperx/)
+
+See AUTHORS for a full list of contributors.
+
+  Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.  This file is offered as-is,
+without warranty of any kind.
+
+ripperX plugin specification v0.1
+
+This document describes the way ripperX plugins work.
+
+1. ripperX plugin?
+
+ ripperx plugin is just a program which interprets the output of various
+rippers/encoders into the form ripperX understands so that I don't have to
+mess with the source code of ripperX to add support for ripperA or encoderB. 
+;-)
+
+
+2. The way program/plugin/ripperX communicates.
+
+ ripperX will take care of the linkage among ripper/encoder, plugin and
+ripperX. The linkage will look like the following.
+                         
+                /-stdout-\ pty/tty          /-stdout-\ pty/tty
+ ripper/encoder-          ---------> plugin-          ---------> ripperX
+                \-stderr-/                  \-stderr-
+		                                     \
+						      -> default stderr
+
+Plugin can just read from stdin and write the result to stdout. Both stdout
+and stderr of ripper/encoder are redirected to stdin of plugin, and stderr of
+plugin is not modified.
+
+
+3. Plugin arguments
+
+ When a plugin is invoked by ripperX, it will be given two arguments. The
+first one is the beginning sector of currently processed track, and the second
+argument is the length of currently processed track in sector. You can use
+this information to caculate the progress.
+
+4. The format of plugin output.
+
+ The output of plugin consists of three parts - type, progress, msg. The type
+field tells ripperX what kind of msg it is sending. Available types are
+ i   ) P : normal reporting of progress w/ or w/o msg. P reporting must have
+ 	   progress field. If it has a msg, it will be displayed in the status
+	   bar of ripperX.
+ ii  ) W : warning. If ripperX receives warning msg, it will display the msg
+ 	   using dialog box but will not halt/abort current job. It must
+	   contain non-null msg field.
+ iii ) E : error. If ripperX receives error msg, it will display the msg using
+           dialog box and halts the job and asks the user if he/she wants to
+	   abort current job. It must contain non-null msg field.
+
+ The progress field tells ripperX how much the ripping/encoding has
+progressed. It is a floating point number between 0 and 1.
+ The msg field is described above.
+
+ The format looks like
+
+ [type progress "msg"]'\n'
+      |        |
+       \---------------> space
+ examples)
+
+ [P 0.12345 "----->            "]
+ [P 0.32321]
+ [W "Hey there."]
+ [E "Hello world!"]
+
+ Every reporting must be followed by a new-line character.
+
+
+5. How often does a plugin have to print out the reporting?
+
+ Plugin should print out a reporting every 0.5 seconds(+- a little bit is just
+ fine) and also should print only one reporting at a time. Also plugins should
+ print nothing when the ripper/encoder is finished. Plugins can skip printing
+ report if it doesn't want to.
+
+==============================================================================
+					     ripperX plugin specification v0.1
+								    TeJun, Huh
+						     wineking@adam.kaist.ac.kr

@@ -1,0 +1,12 @@
+src/cddb.c
+src/cddbp.c
+src/config_window_handler.c
+src/dir_window_handler.c
+src/err_dialog_handler.c
+src/job_control.c
+src/main_window_handler.c
+src/misc_utils.c
+src/players_manipulation.c
+src/ripper_encoder_manipulation.c
+src/select_frame_handler.c
+src/status_frame_handler.c

@@ -1,0 +1,64 @@
+.TH "RIPPERX" "1" 
+.SH "NAME" 
+ripperX \(em graphical (GTK) frontend for ripping and OGG/FLAC/MP3 encoding CD tracks 
+.SH "SYNOPSIS" 
+.PP 
+\fBripperX\fR 
+.SH "DESCRIPTION" 
+.PP 
+This manual page documents briefly the 
+\fBripperX\fR command. 
+.PP 
+This manual page was written for the \fBDebian GNU/Linux\fP distribution 
+because the original program does not have a manual page. 
+ 
+.PP 
+\fBripperX\fR is an X-based program that uses   
+\fBcdparanoia\fR to convert (i.e. "rip") CD audio tracks to 
+WAV files, and then calls the Vorbis/Ogg encoder 
+\fBoggenc\fR to convert the WAV to an OGG file.  
+It can also call \fBflac\fR to perform loss-less compression  
+on the WAV file, resulting in a FLAC file. 
+ 
+Alternately, if you have an MP3 encoder installed such as \fBtoolame\fR     \fBlame\fR or \fBbladeenc\fR, it can then  
+convert the WAV into a MP3 file. 
+.PP 
+Besides a nice GUI interface, \fBripperX\fR also 
+supports CDDB queries to retrieve song and album information, progress 
+meters, and pausing while ripping. 
+.SH "OPTIONS" 
+.PP 
+This program takes no command line arguments.  After starting the 
+application, select the \fIConfig\fP button and cycle through 
+the tabs to learn what options are configurable. 
+ 
+.PP 
+Because Vorbis/Ogg typically uses variable bit rates, there is not a direct 
+correlation between the bitrate selected for encoding and the rate used by 
+\fBoggenc\fR.  The bitrates selected in the MP3 tab of the Configuration 
+dialog are passed to \fBoggenc\fR with the \fI-b\fP switch. 
+Enabling or disabling VBR when using Vorbis/Ogg has no effect on the encoding process. 
+ 
+.PP 
+The FLAC encoding currently does not accept any bitrate arguments,  
+so any bitrate you specify in the config dialog will be ignored for this type of encoding. 
+ 
+.SH "SEE ALSO" 
+.PP 
+cdparanoia (1). 
+.PP 
+oggenc (1). 
+.PP 
+flac (1). 
+.PP 
+toolame (1). 
+.PP 
+Documentation in /usr/share/doc/ripperx/ 
+.SH "BUGS" 
+.PP 
+Many, to be sure...  Please report them as you find them! 
+.SH "AUTHOR" 
+.PP 
+This manual page was written by tony mancill tmancill@debian.org for 
+the \fBDebian GNU/Linux\fP system (but may be used by others). 
+.\" created by instant / docbook-to-man, Tue 04 Jul 2006, 17:33 

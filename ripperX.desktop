@@ -1,0 +1,9 @@
+
+[Desktop Entry]
+Name=ripperX
+Comment=rip CDs and encode to mp3, ogg, or flac 
+Exec=ripperX 
+Icon=/usr/share/pixmaps/ripperX-icon.xpm
+Terminal=false
+MultipleArgs=false
+Type=Application

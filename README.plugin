@@ -1,0 +1,27 @@
+
+Copyright (C) 2011 ripperX developers (http://sourceforge.net/projects/ripperx/)
+
+See AUTHORS for a full list of contributors.
+
+  Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.  This file is offered as-is,
+without warranty of any kind.
+
+This package contains source codes for
+i   . ripperX plugin tester ( ripperX_plugin_tester.c )
+ii  . ripperX plugin for cdparanoia ( ripperX_plugin-cdparanoia.c )
+iii . ripperX plugin for 8hz-mp3  ( ripperX_plugin-8hz-mp3.c )
+
+and documentations describing
+i   . ripperX plugin specifications ( README.plugin_spec_v0.1 )
+ii  . how to use ripperX plugin tester ( README.plugin_tester )
+
+I tested cdparanoia plugin with cdparanoia III alpha prerelease 8 but it
+should work with more recent versions and I think the 8hz-mp3 plugin also
+should work with the versions most people have.
+
+==========================================================================
+					ripperX_plugin_devel_package_v0.1
+							       TeJun, Huh
+					 	wineking@adam.kaist.ac.kr

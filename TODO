@@ -1,0 +1,26 @@
+Copyright (C) 2011,2012
+ripperX developers (http://sourceforge.net/projects/ripperx/)
+Aljosha Papsch <papsch.al@googlemail.com>
+
+See AUTHORS for a full list of contributors.
+
+  Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.  This file is offered as-is,
+without warranty of any kind.
+
+* Port to GTK+-3. [ongoing]
+  * One important issue is to use GtkDialog for messages.
+* Do a rearrangement of the GUI. [ongoing]
+* Clean up the code.
+* Create documentation. [surely ongoing]
+* Use dconf for configuration
+
+In the following you will find the old TODO list from ripperX. I just leave them here, maybe there will be some time to implement it. Or just *borrow* it from ripperX ;)
+
+---
+These things are on the wishlist for 2.x releases of ripperX; they are
+listed in some semblance of priority.
+
+* Add the ability to submit CD data to the CDDB if the CD is not found.
+* Eject cd when complete (option to spec cdrom?)

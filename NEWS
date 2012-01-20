@@ -1,0 +1,555 @@
+
+Copyright (C) 2011,2012
+Aljosha Papsch <papsch.al@googlemail.com>
+ripperX developers (http://sourceforge.net/projects/ripperx)
+
+   Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.  This file is offered as-is,
+without warranty of any kind.
+
+See ChangeLog for a detailed list of news.
+
+This is new since 3.2:
+
+ * The main window now looks nicer. Some minor appearance issues were changed.
+
+This is new since 3.1:
+
+ * The port to GTK+-3 was successfully. Rippix is now compilabe, though some
+   issues remain. The status was changed from pre-alpha to alpha.
+
+This is new since 3.0:
+
+ * select_frame_handler.c is fully ported. This file handles the text entries
+   and more in the main window of Rippix. All XPM files were abandoned, the
+   stock images are now in use. The two radio buttons "Encode" and "Rip to Wav"
+   were replaced by a Combobox. The Togglebutton with which the user can
+   include/exclude a file for ripping/encoding is now directly beside the play
+   button.
+
+Following are the news from ripperX, copied from the now deleted CHANGES file.
+==============================================================================
+
+Version 2.7.3
+
+2010-11-13
+* Add Glacian translation.  Thank you to Miguel Bouzada.
+* Add German translation.  Thank you to Chris Leick. (Debian #550207)
+* Increase width of main menu slightly ("Go" button was being clipped).
+* Automatically select all tracks after a CDDB lookup - by popular demand.
+* Correct typos in error messages.  Thank you Chris Leick. (Debian #550208)
+* Apply buffer overflow patches (LP #514739)
+* Apply patch to no longer put underscore instead of space in id3 tag
+  (LP #671852)
+* distclean target removes .gmo translation build artifacts
+* Apply patches from Robert Turnbull
+  - Add year to Vorbis tags
+  - Tags FLAC encoded files with metaflac
+
+-------------------------------------------------------------------------
+Version 2.7.2 
+
+Remove auto-generated files from SVN source tree.  You should be able to
+build the package from the source tarball by running ./configure ; make.  
+If that fails, make sure you have automake, libtool, and autoconf installed
+and use ./autogen.sh.
+
+-------------------------------------------------------------------------
+Version 2.7.1 
+
+2008-02-11
+  - Italian translation added.
+
+2008-02-01
+  - Spanish translation added.
+
+2008-01-27
+* significant contributions from twb (at) users (dot) sourceforge (dot) net!
+
+  - Revamp build system to use autoconf, automake, and libtool.
+    autoconf >= 2.60 is needed, as well as recent automake and autoconf
+
+  - Internationalization support has been added.
+    gettext >= 0.15.x is required
+
+  - GTK2 interface
+    GTK2 >= 2.6.x is required
+    Glib >= 2.6.x is required
+
+    Not all deprecated GTK functions have been replaced yet. I've add the
+    ./configure flag --disable-deprecated, as a dev helper. Currently, as
+    there are still deprecated functions, a build will fail if this flag is
+    used.
+
+* fix gtk_start_pack_box assertion error messages.
+* add ripperX.xpm icon file
+
+2008-01-20/tm 
+* apply child reaper fix from Paul Fox to correctly clean
+  up plugin processes when running under dash.
+
+* remove internal versions of id3.c and id3lib.c and use libid3 directly
+  - migrate internal functions to misc_utils.c
+* remove refererence to xpms.h
+* add <string.h> to source files using str functions
+* updated ./src/Makefile.in to link against libz (used by libid3)
+* updated cdplay arguments
+* replaced splay with play (typically part of the sox package)
+* inverted the order of changes in this file
+
+-------------------------------------------------------------------------
+Version 2.7.0 2006-04-16
+
+* applied ID3v2 patches (provided by Ben Zonneveld - thanks!)
+  - compilation now depends on id3lib
+
+* changed how vorbiscomment is invoked for tagging OGG files; 
+the OGG file no longer has to be copied during tagging
+
+-------------------------------------------------------------------------
+Version 2.6.7 2005-11-06
+
+* misc_utils.c: file_path_without_name() null-terminates returned string
+  (fixes problem with playlists)
+
+* select_frame_handler.c:  no longer auto-selects a track when it
+receives cursor focus for editing.  This circumvents the call to 
+put_track_title() which was causing the cursor to jump to the end
+of the text buffer.
+
+-------------------------------------------------------------------------
+2005-06-03
+
+* err_dialog_handler.h:  added two new error errno codes for cdparanoia
+* ripper_encoder_manipulation.c:  tweaked the cdparanoia processing code
+  to work with Fedora Core 3 and to detect no disc as compared to no perms
+  (unless -sv is being used); updated error messages related to cdparanoia
+
+-------------------------------------------------------------------------
+Version 2.6.5 2005-06-01
+
+* fixed ID3v1 problem with vorbis tags in OGG files where song titles are
+  longer than 30 characters
+* added basic m3u playlist support (unqualified filenames in target dir);
+  the config dialog option is in "Files"
+* modified df check in misc_utils.c to use -P (POSIX output), to ignore 
+  stderr, and to tail only the last line returned
+
+-------------------------------------------------------------------------
+Version 2.6.4 2004-11-21
+
+* fixed awk field fetched from df in misc_utils.c  (SF #869947)
+* added more bitrate options (32, 40, 48, 80, 224)
+* added support for toolame encoder; note that toolame output files are
+  given the .mp3 extension (even though they are technically MPEG layer
+  2 files).  This is done purposefully to not confuse the issue for
+  folks, as I think that most audio players out there today recognize
+  MPEG layer 2 formatted files without issue.
+
+-------------------------------------------------------------------------
+Version 2.6.3 2004-10-24
+
+* applied priority patch; allows the encoder nice priority to be set
+  (SF #870373)
+
+* applied AMD64 patches - thanks to Stefan Fuchs
+  (SF #920105)
+
+* hacked on cddb.c to try to address CDDB DTITLE entries without
+  ' / ' between the artist and disc title 
+  (this is an attempt to address SF #882144)
+
+-------------------------------------------------------------------------
+Version 2.6.2 2004-10-09
+
+* fix put_track_title() in misc_utils.c to explicitly null-terminate
+  the string after removing trailing spaces
+  (thanks to Ken Wakasa and Clemens Gerlach for submitting patches)
+
+* fix to real_local_file() in cddb.c to add the path separator when
+  accessing local CDDB files (instead of querying them from a CDDB server)
+  (thanks to Steve Bresson for the patch)
+
+* fixed offset [ tracknum ] function definition problems in cddbp.c
+  (SF #1030728)
+
+* changed "Encode to mp3" to simply "Encode" (SF #963164)
+  changed "Rip wav" to "Rip to WAV" as well
+
+-------------------------------------------------------------------------
+Version 2.6.1 2004-01-04
+
+tony mancill <tmancill@debian.org>
+
+* Rick Coupland <rick@soloca.com> provided significant patches to the 
+2.6.0 source tree, including:
+	
+	- Handle track artist data in freedb data & use it in ID3 tags.
+	- Allow entry by user of track artists in the track name using 
+		the same format as freedb (Artist / Title).
+    - Config data is now saved when the OK button is clicked rather than
+		waiting until the program exits.
+	- The MP3 "File name format" config entry from the General tab is now 
+		used as the default track name format.  The Wav "File name format"
+		config entry is not used at all.  Actual file names are always 
+		constructed using the "Filename format string" from the Files 
+		configuration tab.
+
+* functions in cddp.c now return -1 if they fail to read from the CDDB server
+  (thanks to Erid de Castro Lopo <erikd@mega-nerd.com> for the bug report and 
+  patch via the Debian BTS)
+
+--------------------------------------------------------------------------------
+Version 2.6 2003-09-20
+
+Dave Cinege <dcinege@psychosis.com>
+
+	* Upped version number to 2.6
+	* Names now fully unix safe!
+
+	*     Cddb names are converted before entry into the editting window
+	*     Wrote high_ascii_to_low_ascii()
+	*     Rewrote remove_non_unix_chars() (Renamed from remove_non_unix() )
+	*     Rewrote convert_spaces() and convert_slashes()
+	*     ASCII 160-255 now converted to printable lower ascii equivilents
+	*     Unprintable/Evil chars are removed instead of replaced (shrinks str)
+	*     Convert title/names only, user supplied path is not altered
+	*     Arguments surrounded by single quotes, for shell safeness
+
+	* rmdir wav work dir, if wav files are not kept && wav_dir != mp3_dir
+	* Prettied up 'finished' window
+	* Fixed disk space check (wrong position, awk $3 !$4)
+	* Time Info in progress dialog made 275 wide to fit text
+	* Ripping progress dialog made 130 wide to fit text
+	* Fixed ripping progress (cdparanoia 9.8)
+	* Now use glibc openpty(). Requires libutil.
+	* Fixed cddb parsing of Artist / Album. UNFIXABLE BUG: Artist contains " / "
+
+--------------------------------------------------------------------------------
+Version 2.5+ Debian package
+
+Tony Mancill <tony@mancill.com>
+
+	? [ 784517 ] RipperX (latest) has percentage error.
+
+	? [ 778860 ] ogg files created in wrong directory
+
+	* added FLAC support (the only major change)
+
+	* set LC_NUMERIC locale to POSIX (to fix decimal point problems in the
+	plugins)
+
+	* halfway fixed the non-Unix character in filename problem.  (Thanks for
+	finishing this.  I need to look more closely at how you did it.  The only
+	thing that occurs to me to watch out for is internationalization.)
+
+	* hacked the oggenc plugin so that progress bars work better with the 1.0
+	release of vorbis tools
+
+--------------------------------------------------------------------------------
+Version 2.5 2003/01/18
+    -fix file/albumdir names
+    -vorbis tagging now works
+
+-------------------------------------------------------------------------------
+Version 2.4 2002/09/23
+	-integrated debian patch
+		*don't give away user info on cddb query
+		*correct commandline options for lame
+		*correct commandline for gogo
+		*correct extension for ogg files
+	-fixed segfault in error dialogs
+	-make ogg progress bars move
+	-always write id3 tag when requested 
+	-sync up select_frame and main data
+	-check diskspace before even attempting to rip/encode
+	-disable plugins when no encoder for it found
+	-check if wav/mp3 path exists, if not, propose to create it
+	-enable album dirs and id3tags by default
+
+
+
+-------------------------------------------------------------------------------
+Version 2.3 2001/11/19
+	-Integrated most outstanding patches
+	-fixed some annoying bugs
+	-updated some docs
+	
+-------------------------------------------------------------------------------
+Version 2.2 08/07/2001
+
+Jos Dehaes
+	-Integrated some contributed patches
+	-updated some docs
+	-added support to edit the album and the artist
+
+-------------------------------------------------------------------------------
+Version 2.1 30/01/2001
+
+Jos Dehaes
+	-Fixed bug in gogo-plugin so progressmeters actually move
+	-wrote oggvorbis plugin - note that vorbis tagging doesn't work...
+	-Changed the announce string for CDDB on cddb.com, since they won't allow ripperX as client anymore
+	-Fixed SEGV when CDDB lookup fails (or rather when the dialog is destoryed)
+
+
+-----------------------------------------------------------------------------
+Version "Scott didn't update the CHANGES file" 10/19/2000
+
+Nils Philippsen <nils@redhat.de>
+	- configure and use lame's VBR quality feature
+
+-----------------------------------------------------------------------------
+Version 2.0 9/12/00
+
+Scott Sams <sbsams@eos.ncsu.edu>
+	-Fixed bug when ripping takes longer than encoding.
+	-Tracks Done is now reset properly
+	-New ripperX icon for Gnome
+	
+TeJun Huh <wineking@adam.kaist.ac.kr>
+	-Moved files for ripperX into subdirectory named 'src' and files for
+	 plugins into subdirectory named 'plugins'
+	-Rewrote configure.in, Makefile.in. It's now cleaner & easier to
+	 modify.
+	-The results of tests done by configure is available via src/config.h
+	 and plugins/config.h. Added '#include "config.h"' to common.h.
+	 However, there remains a lot of work to make ripperX portable.
+	-Modified INSTALL document and ripperX.spec to reflect the changes.
+	-Merged misc.h/c into misc_utils.h/c.
+	-Moved #include directives to where they belong.
+	-Moved prototypes for functions which are not interface from h files
+	 to corresponding c files.
+
+Bryan Whitehead <bwhitehead@acm.org>
+	-Fixed automatic lookup of CD when no CD was in drive.
+	-Disabled CDDB and GO buttons when no cd in drive.
+
+Dax Kelson <dax@gurulabs.com>
+	-Updated SPEC to use $RPM_BUILD_ROOT, changelog, docs & strip binaries
+	-Created GNOME ".desktop" file so ripperX shows up on the menu
+	-Files created as group writable, enabling shared directory ripping
+
+-----------------------------------------------------------------------------
+Version 1.9 12/29/1999
+
+Scott Sams <sbsams@eos.ncsu.edu>
+	-MAJOR Change: ripperX can now rip and encode in parallel!
+	 This makes ripperX MUCH more efficient and faster.
+	-rewrote job_controller and calc_stat to support parallel mode
+	-updated find_next_job to support parallel mode
+	-Created a new "Files" tab in the config window. Moved stuff around.
+	-removed the "Abort All" button. Abort is now Abort All.
+	 (changed for simplicity in parallel mode)
+	-removed "Auto append .wav or .mp3" option for simplicity and also
+	 because it HAS to be checked in order for ripperX to work properly.
+	-major changes to status_frame_handler
+	-stat_ struct changed and moved into common.h
+	-changed calculation for total_progress, time_remaining, etc.
+	-make_mp3_from_existing_wav now works. If the wav file of the
+	 same name already exists, it will not be ripped again.
+	-changes in lock_file to look for existing wav files
+	-remove changed to unlink to prevent deleting empty directories
+	-.mp3 should no longer be needlessly appended
+	-wav files should now have CDDB names instead of track1.wav, etc.
+	-cleaned up references to some old stuff in the code
+	-removed the cdparanoia_create_argv function since it is not used.
+	-ripperX will no longer hang if there is a data CD in the drive.
+
+-----------------------------------------------------------------------------
+Version 1.2 12/14/1999
+
+Scott Sams <sbsams@eos.ncsu.edu>
+	-New icons and new ripperX logo! Thanks to The Gimp.
+	-VBR for xingmp3 now works like it should: The -V parameter is derived from
+	 the bitrate, and the -B no longer is passed.  Thanks to Derek Harding 
+	 <derek@innovyx.com> and Dax Kelson <dax@gurulabs.com>
+	-Can now create subdirs like "artist/album/file.mp3"
+	-No longer segfaults with cdparanoia 9.7
+	-Error dialog cosmetic changes: left alignment for all messages
+	-Made some error messages less cryptic
+
+Dirk Katzenbach <kaba@ikarus.ping.de>
+	-Fix the cddb disc id calculation
+
+-----------------------------------------------------------------------------
+Version 1.1 11/11/1999
+
+Scott Sams <sbsams@eos.ncsu.edu>
+	-Plugins for FHG Encoders (l3enc v 2.72 and mp3enc v3.1)
+	-Workaround for l3enc not liking spaces in file names
+	-Updated lame plugin for version 3.50
+	 NOTE: You must upgrade to lame v3.50, as 3.13 will NOT work with this
+	 plugin.
+	-Bug fix for GOGO Encoder.
+	 NOTE: You must use gogo v2.22 or higher
+	-Bug fix for cdparanoia not searching for drive
+	-Changed default cddb server to freedb.org instead of cddb.com,
+	 because it is the "right" thing to do.
+
+Paul Rahme <pgr@ucs.co.za>
+	-Patch to use CDDB through an HTTP proxy server
+
+Carl Seutter <cseutter@ipalco.com>
+	-CDDB cache directory
+
+Derek Harding <derek@innovyx.com>
+	-Bugfix for mp3_ratio messing up
+	-Automatic CDDB lookup on startup
+	-Bugfix for artist & title not getting shown
+
+-----------------------------------------------------------------------------
+Version 1.0
+
+Scott Sams <sbsams@eos.ncsu.edu>
+	-Added plugin for Xing Mp3 Encoder
+		contributed by Derek Harding <derek@innovyx.com>
+	-Added plugin for GoGo Mp3 Encoder
+		contributed by Justin Buist <buistjj@river.it.gvsu.edu>
+	-Added format string for the "create subdirectory" option
+	-CDDB HTTP bugfix
+	-Fix for plugins not picking up all options
+		contributed by Alfred Weyers <alfred@otto.gia.RWTH-Aachen.DE>
+	-Changed command line cd player from dcd to cdplay, since it
+	    comes with RedHat 6.0
+	-No longer writes files with non ASCII characters
+	-Minor code cleanups
+	
+TeJun <wineking@adam.kaist.ac.kr>
+	-Plugged a HUGE memory leak
+		Thanks to Steven Wilcoxon for the bug report!
+	-Added locale support
+	-Removed all compiler warnings
+
+Ralf Engels <engels@arcormail.de>
+	-Patch for better error checking so files won't be deleted accidently
+
+-----------------------------------------------------------------------------
+Version 0.99
+
+Scott Sams <sbsams@eos.ncsu.edu>
+	*NOTE* You must delete your old .ripperXrc file before trying 
+	this version! **
+
+	-Plugin for the Lame mp3 encoder
+		contributed by Justin Buist <buistjj@river.it.gvsu.edu>
+	-Plugin for the BladeEnc mp3 encoder
+	-Lame is now default encoder
+	-Optionally generate an ID3 tag from CDDB information
+	-Added more encoding options for all encoders:
+		Variable bitrate
+		High quality encoding
+		CRC error protection
+	-Added more encoding bitrates
+	-Status popup window when ripping or encoding is finished
+	-Fixes for CDs with more than 50 tracks
+	-Fixed some cddb bugs
+	-Convert Underscores now converts non-unix characters
+	-Album subdirectory obeys convert underscores option
+	-Reworked how encoder options are stored in config file
+	-No longer need "%w" "%m" in extra options space
+
+-----------------------------------------------------------------------------
+Version 0.98
+
+Scott Sams <sbsams@eos.ncsu.edu>
+	*NOTE* You must delete your old .ripperXrc file before trying 
+	this version! **
+	
+	-HTTP Proxy for CDDB
+	-Configuration panels for mp3 encoders and cdparanoia
+	-Added format string for cddb file names
+	-Changed default refresh from 5 seconds to 1 second
+	-Permissions on created files fixed
+	-Changed default values in config_rw.c (must delete old .ripperXrc)
+	-Fixed the hang if you clicked on CDDB button while offline
+	-Track number now in double digit format, e.g. Track 02
+
+-----------------------------------------------------------------------------
+Version 0.97
+
+Scott Sams <sbsams@eos.ncsu.edu>
+	Made ripperX work with newer versions of cdparanoia. Improved the 
+	parsing of cdparanoia -Q. Improved the reporting of cdparanoia's error 
+	messages.  Fixed "Select All Tracks" button to have the correct 
+	behavior.  Made SRPM and i386 RPMS of ripperX.
+
+-----------------------------------------------------------------------------
+Version 0.96
+
+Scott Sams <sbsams@eos.ncsu.edu>
+	Greatly simplified the select_frame_handler interface. Instead of 
+	having 2 tiny text boxes, there is one big textbox that will generate 
+	names for both the wav and the mp3 file. Took out the play buttons for 
+	playing the wav and mp3. I might put them back in, but I thought they 
+	cluttered the interface too much (and I never used them anyway). Made 
+	a radiobox for selecting the action (rip or encode).
+
+	Wrote a plugin for the ISO encoder version 2 (the "encode" program). 
+	The default encoder is now this one. It is free and produces very good 
+	quality mp3s.
+
+	All the plugins are now included in the plugins directory, instead of a
+	separate package. They will be built and installed.
+
+	Made a new logo for RipperX in the Gimp. :-)
+
+	Fixed a bug for file names with spaces. The solution was to place 
+	double quotes around the commands in the config dialog. e.g. 
+	encode "%w" "%m"
+
+	Allocated more space for buffers MAX_COMMAND_LENGTH, 
+	MAX_FILE_NAME_LENGTH, MAX_FILE_PATH_LENGTH and MAX_TITLE_LENGTH.
+
+	For the next version, I will make some SRPMS of ripperX, cdparanoia, 
+	dcd and the ISO encoder.
+
+	Incorporated patches from ripperX-0.9z and ripperX-0.9b-segfix2.diff and
+	ripperX-0.9b-dk.diff. Added checkbutton for creating subdirectories.
+
+	Made everything work with autoconf again.
+
+-----------------------------------------------------------------------------
+Version 0.95-devel1
+
+Tejun <wineking@adam.kaist.ac.kr>
+	Added support for plugin interface and cleaned up source code a little
+	bit. Now ripperX deletes WAV file when a job is aborted.
+
+-----------------------------------------------------------------------------
+Version 0.9b
+
+TeJun <wineking@adam.kaist.ac.kr>
+	Changed the way CDDB displays its progress. Now it uses statusbar
+	instead of separate progress window. Also the FIXME of V0.85a
+	has been corrected. Changed the config read/write part such that
+	it can handle older configuration files properly. Changed the way
+	ripperX handles file names such that the names are kept after a
+	ripping/encoding session.
+	version number has been bumped up to 0.9b meaning it's a major
+	release.
+
+-----------------------------------------------------------------------------
+Version 0.85a
+
+Scott Sams <sbsams@eos.ncsu.edu>
+	Fixed a few segfault bugs and increased size of track titles buffer.
+	Added error checking via error_handler dialog boxes. Added a progress
+	bar.
+	FIXME: Still does not update correctly in the beginning and while 
+	connecting to server. Added Button for connecting to CDDB server.
+	Added Notebook for configuring CDDB server and 2 new options -
+	Convert Spaces to underscores, and Include artist name in file
+	name. "Borrowed" CDDB icon from www.cddb.com and modified it using
+	the Gimp.
+	
+-----------------------------------------------------------------------------
+Version 0.84a
+
+Scott Sams <sbsams@eos.ncsu.edu>
+	Added Preliminary CDDB support. No error checking or configurability 
+	yet. CDDB support is based on code from cccd, which IMHO had the
+	nicest abstraction of the CDDB protocol from actual implementation.
+	cccd was written by Sven Riedel<Sven.Riedel@heim8.tu-clausthal.de>
+

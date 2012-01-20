@@ -1,0 +1,686 @@
+# Italian translation of ripperX.
+# Copyright (C) 2008 Salvatore De Paolis <iwkse@claws-mail.org>
+# This file is distributed under the same license as the ripperX package.
+# Salvatore De Paolis <iwkse@claws-mail.org>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ripperX\n"
+"Report-Msgid-Bugs-To: tmancill@users.sourceforge.net\n"
+"POT-Creation-Date: 2012-01-11 20:49+0100\n"
+"PO-Revision-Date: 2008-02-01 22:19+100\n"
+"Last-Translator: Salvatore De Paolis <iwkse@claws-mail.org>\n"
+"Language-Team: Salvatore De Paolis <iwkse@claws-mail.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/cddb.c:607
+msgid "Contacting CDDB server..."
+msgstr "Connessione al server CDDB..."
+
+#: src/cddb.c:626
+msgid "Grabbing Completed..."
+msgstr "Estrazione Completata..."
+
+#: src/cddbp.c:238
+#, c-format
+msgid "Reading Information about track %2d"
+msgstr "Lettura informazioni della traccia %2d"
+
+#: src/cddbp.c:253
+msgid "Done..."
+msgstr "Fatto..."
+
+#: src/config_window_handler.c:94
+msgid "General Configuration"
+msgstr "Configurazione Generale"
+
+#: src/config_window_handler.c:101
+msgid "Wav file"
+msgstr "File Wav"
+
+#: src/config_window_handler.c:109 src/config_window_handler.c:148
+msgid "File name format: "
+msgstr "Formato del file"
+
+#: src/config_window_handler.c:127 src/config_window_handler.c:165
+msgid "Target Directory: "
+msgstr "Cartella di destinazione"
+
+#: src/config_window_handler.c:140
+msgid "MP3 file"
+msgstr "File MP3"
+
+#: src/config_window_handler.c:182
+msgid "Prepend character : "
+msgstr "Aggiungi un carattere all'inizio : "
+
+#: src/config_window_handler.c:197
+msgid "Make Mp3 from existing Wav file"
+msgstr "Crea un Mp3 da un file Wav esistente"
+
+#: src/config_window_handler.c:208
+msgid "Ask user when specified file exists"
+msgstr "Chiedi all'utente se un file esiste"
+
+#: src/config_window_handler.c:216
+msgid "Keep wav files"
+msgstr "Mantieni file wav"
+
+#: src/config_window_handler.c:223 src/config_window_handler.c:224
+msgid "General"
+msgstr "Generale"
+
+#: src/config_window_handler.c:244
+msgid "You need to fill every entry in general page"
+msgstr "Devi riempire tutti i campi nella pagina generale"
+
+#: src/config_window_handler.c:290
+msgid "Force search for drive (ignore /dev/cdrom)"
+msgstr "Forza la ricerca per unità disco (ignora /dev/cdrom)"
+
+#: src/config_window_handler.c:292
+msgid "Disable paranoia (will act like cdda)"
+msgstr "Disattiva paranoia (funzionerà come cdda)"
+
+#: src/config_window_handler.c:294
+msgid "Disable extra paranoia"
+msgstr "Disattiva extra paranoia"
+
+#: src/config_window_handler.c:296
+msgid "Disable scratch detection"
+msgstr "Disattiva il riconoscimento parti danneggiate"
+
+#: src/config_window_handler.c:298
+msgid "Disable scratch repair"
+msgstr "Disattiva la riparazione parti danneggiate"
+
+#: src/config_window_handler.c:318
+msgid "Wav Configuration"
+msgstr "Configurazione Wav"
+
+#: src/config_window_handler.c:332
+msgid "Ripper plugin"
+msgstr "Plugin Ripper"
+
+#: src/config_window_handler.c:379 src/config_window_handler.c:697
+msgid "Extra Options: "
+msgstr "Opzioni Extra: "
+
+#: src/config_window_handler.c:548
+msgid "Mp3 Configuration"
+msgstr "Configurazione Mp3"
+
+#: src/config_window_handler.c:559
+msgid "Encoder plugin"
+msgstr "Plugin di codifica"
+
+#: src/config_window_handler.c:592
+msgid "BitRate, Default 128kbits"
+msgstr "BitRate, Default 128kbits"
+
+#: src/config_window_handler.c:636
+msgid "Use variable bitrate (VBR)"
+msgstr "Usa bitrate variabile (VBR)"
+
+#: src/config_window_handler.c:642
+msgid "VBR quality (if available)"
+msgstr "Qualità VBR (se disponibile)"
+
+#: src/config_window_handler.c:656
+msgid "0=high quality and bigger files, 9=smaller files"
+msgstr "0=Alta qualità e file grandi, 9=file piccoli"
+
+#: src/config_window_handler.c:660
+msgid "Encoder Priority"
+msgstr "Priorità del codificatore"
+
+#: src/config_window_handler.c:676
+msgid "0=high priority, 19=system is responsive while encoding"
+msgstr "0=Priorità alta, 19=sistema reattivo durante la codifica"
+
+#: src/config_window_handler.c:681
+msgid "High quality mode"
+msgstr "Modo alta qualità"
+
+#: src/config_window_handler.c:688
+msgid "Include CRC error protection"
+msgstr "Includi la protezione errori CRC"
+
+#: src/config_window_handler.c:901 src/config_window_handler.c:947
+#: src/config_window_handler.c:948
+msgid "Players"
+msgstr "Lettori"
+
+#: src/config_window_handler.c:909
+msgid "CD play command: "
+msgstr "Comando esegui CD: "
+
+#: src/config_window_handler.c:919
+msgid "CD stop command: "
+msgstr "Comando ferma CD: "
+
+#: src/config_window_handler.c:929
+msgid "Wav play command: "
+msgstr "Comando esegui Wav: "
+
+#: src/config_window_handler.c:938
+msgid "Mp3 play command: "
+msgstr "Comando esegui Mp3: "
+
+#: src/config_window_handler.c:963
+msgid "You need to fill every entry in players page"
+msgstr "Devi riempire tutti i campi nella pagina lettori"
+
+#: src/config_window_handler.c:996
+msgid "File Configuration"
+msgstr "Configurazione file"
+
+#: src/config_window_handler.c:1005
+msgid "Convert spaces to underscores"
+msgstr "Converti spazi in trattino basso"
+
+#: src/config_window_handler.c:1014
+msgid "Create album subdirectory for each CD"
+msgstr "Crea una sottodirectory album per ogni CD"
+
+#: src/config_window_handler.c:1023
+msgid "Create ID3 tag"
+msgstr "Crea tag ID3"
+
+#: src/config_window_handler.c:1030
+msgid "Create m3u playlist"
+msgstr "Crea lista brani m3u"
+
+#: src/config_window_handler.c:1041
+msgid "Filename format string: "
+msgstr "Formato del nome file: "
+
+#: src/config_window_handler.c:1055
+msgid "Directory format string: "
+msgstr "Formato della cartella: "
+
+#: src/config_window_handler.c:1071
+#, c-format
+msgid "%a = Artist"
+msgstr "%a = Artista"
+
+#: src/config_window_handler.c:1074
+msgid "%v = Album"
+msgstr "%v = Album"
+
+#: src/config_window_handler.c:1077
+msgid "%# = Track no."
+msgstr "%= = Traccia n."
+
+#: src/config_window_handler.c:1080
+#, c-format
+msgid "%s = Song title"
+msgstr "%s = Titolo brano"
+
+#: src/config_window_handler.c:1083
+msgid "%y = Year"
+msgstr "%y = Anno"
+
+#: src/config_window_handler.c:1089 src/config_window_handler.c:1090
+msgid "Files"
+msgstr "File"
+
+#: src/config_window_handler.c:1150
+msgid "CDDB Configuration"
+msgstr "Configurazione CDDB"
+
+#: src/config_window_handler.c:1163
+msgid "URL: "
+msgstr "URL: "
+
+#: src/config_window_handler.c:1174
+msgid "Port: "
+msgstr "Porta: "
+
+#: src/config_window_handler.c:1186
+msgid "Use HTTP"
+msgstr "Usa HTTP"
+
+#: src/config_window_handler.c:1193
+msgid "Proxy Server: "
+msgstr "Server Proxy: "
+
+#: src/config_window_handler.c:1204
+msgid "Proxy Port: "
+msgstr "Porta Proxy: "
+
+#: src/config_window_handler.c:1221
+msgid "CDDB Cache path: "
+msgstr "Percorso cache CDDB: "
+
+#: src/config_window_handler.c:1237
+msgid "Automatic lookup on startup"
+msgstr "Ricerca automatica all'avvio"
+
+#: src/config_window_handler.c:1259
+msgid "You need to specify a server and a port"
+msgstr "Devi specificare un server ed una porta"
+
+#: src/config_window_handler.c:1323 src/main_window_handler.c:148
+msgid "Configuration"
+msgstr "Configurazione"
+
+#: src/dir_window_handler.c:101
+msgid "Select a directory"
+msgstr "Seleziona una cartella"
+
+#: src/err_dialog_handler.c:51
+msgid "An error has occured while forking"
+msgstr "Errore nella creazione del processo"
+
+#: src/err_dialog_handler.c:52
+msgid "Cannot create pipe"
+msgstr "Impossibile creare la pipe"
+
+#: src/err_dialog_handler.c:53
+msgid "Cannot open /dev/null"
+msgstr "Impossibile aprire /dev/null"
+
+#: src/err_dialog_handler.c:54
+#, fuzzy
+msgid "Memory allocation error has occurred"
+msgstr "Si è verificato un errore di allocazione di memoria"
+
+#: src/err_dialog_handler.c:55
+msgid ""
+"An error has occurred while trying to\n"
+"reopen a file as a stream (fdopen)"
+msgstr ""
+"Si è verificato un errore cercando di\n"
+"riaprire un file come stream (fdopen)"
+
+#: src/err_dialog_handler.c:56
+msgid "Cannot read from the pipe"
+msgstr "Impossibile leggere dalla pipe"
+
+#: src/err_dialog_handler.c:57
+msgid "Cannot delete file"
+msgstr "Impossibile eliminare il file"
+
+#: src/err_dialog_handler.c:58
+msgid ""
+"Cannot open configuration file\n"
+"loading default values"
+msgstr ""
+"Impossibile aprire il file di configurazione\n"
+"verranno caricati i valori predefiniti"
+
+#: src/err_dialog_handler.c:59
+msgid "Cannot create configuration file ~/.ripperXrc"
+msgstr "Impossibile creare il file di configurazione ~/.ripperXrc"
+
+#: src/err_dialog_handler.c:60
+msgid ""
+"Cannot open a pty\n"
+"Maybe all ptys are busy"
+msgstr ""
+"Impossibile aprire una pty\n"
+"Tutte le pty potrebbero essere occupate"
+
+#: src/err_dialog_handler.c:61
+msgid "/////  use perror msg until here /////"
+msgstr "///// usa il messaggio perror fin qui ///// "
+
+#: src/err_dialog_handler.c:62
+msgid "Too many arguments"
+msgstr "Troppi argomenti"
+
+#: src/err_dialog_handler.c:63
+msgid "Job already in progress"
+msgstr "Attività già in esecuzione"
+
+#: src/err_dialog_handler.c:64
+#, fuzzy
+msgid ""
+"Please select a track to rip or encode.\n"
+"If you did select tracks, they may already have been ripped."
+msgstr ""
+"Seleziona una traccia da estrarre o convertireSe hai già selezionato le "
+"tracce, potrebbero essere già state estratte."
+
+#: src/err_dialog_handler.c:65
+#, fuzzy
+msgid ""
+"Make sure an audio disc is in the drive and that you are\n"
+"either running ripperX as root, are a member\n"
+"of the \"cdrom\" group, or otherwise have appropriate\n"
+"permissions to access the CDROM device.\n"
+msgstr ""
+"Assicurati che ci sia un CD audio nel lettore e che ripperX venga\n"
+"eseguito con permessi root, di essere membro del gruppo \"cdrom\", o in\n"
+"altro modo di avere i permessi per accedere alla periferica CDROM.\n"
+
+#: src/err_dialog_handler.c:66
+msgid "The file name is too long"
+msgstr "Il nome del file è troppo lungo"
+
+#: src/err_dialog_handler.c:67
+msgid "Some entry(s) are empty"
+msgstr "Alcuni campi sono vuoti"
+
+#: src/err_dialog_handler.c:68
+msgid "An error has occurred while parsing ~/.ripperXrc"
+msgstr "Si è verificato un errore analizzando ~/.ripperXrc"
+
+#: src/err_dialog_handler.c:69
+msgid "Some field(s) are empty. Substituting default value"
+msgstr "Alcuni campi sono vuoti. Sostituzione con valori predefiniti"
+
+#: src/err_dialog_handler.c:70
+msgid "Invalid selection"
+msgstr "Selezione invalida"
+
+#: src/err_dialog_handler.c:71
+msgid "Could not connect to CDDB server"
+msgstr "Impossibile connettersi al server CDDB"
+
+#: src/err_dialog_handler.c:72
+msgid "Connection refused from CDDB server"
+msgstr "Connessione rifiutata dal server CDDB"
+
+#: src/err_dialog_handler.c:73
+msgid "CDDB Server Error"
+msgstr "Errore dal server CDDB"
+
+#: src/err_dialog_handler.c:74
+msgid "CD Not Found in CD Database"
+msgstr "CD non trovato nel Database dei CD"
+
+#: src/err_dialog_handler.c:75
+msgid "Cannot parse the format string"
+msgstr "Impossibile analizzare il formato della stringa"
+
+#: src/err_dialog_handler.c:76
+msgid "Plugin not present"
+msgstr "Plugin non presente"
+
+#: src/err_dialog_handler.c:77
+#, fuzzy
+msgid ""
+"Error while locking file.\n"
+"Make sure the WAV dir and MP3 dir paths are correct and\n"
+"you have permission to write to those directories."
+msgstr ""
+"Errore nel bloccare il file.\n"
+"Controlla che i percorsi alle cartella WAV e MP3 sono corretti e\n"
+"di avere i permessi di scrittura."
+
+#: src/err_dialog_handler.c:78
+msgid "The WAV dir is not writable."
+msgstr "La cartella WAV non ha permessi di scrittura."
+
+#: src/err_dialog_handler.c:79
+msgid "The MP3 dir is not writable."
+msgstr "La cartella MP3 non ha permessi di scrittura."
+
+#: src/err_dialog_handler.c:80
+msgid "Cannot create WAV dir"
+msgstr "Impossibile creare la cartella WAV"
+
+#: src/err_dialog_handler.c:81
+msgid "Cannot create MP3 dir"
+msgstr "Impossibile creare la cartella MP3"
+
+#: src/err_dialog_handler.c:82
+msgid "Make sure an audio disc is in the CDROM device."
+msgstr "Assicurati che ci sia un disco nel lettore CDROM."
+
+#: src/err_dialog_handler.c:83
+msgid ""
+"Make sure that you are a member of the the \"cdrom\" group,\n"
+"or otherwise have appropriate permissions to access the CDROM device."
+msgstr ""
+"Assicurati di essere membro del gruppo \"cdrom\", o in\n"
+"altro modo di avere i permessi per accedere alla periferica CDROM."
+
+#: src/err_dialog_handler.c:93
+msgid "Abort confirmation"
+msgstr "Conferma terminazione"
+
+#: src/err_dialog_handler.c:93
+msgid "Do you really want to abort?"
+msgstr "Vuoi davvero terminare?"
+
+#: src/err_dialog_handler.c:95
+msgid "Wanna delete?"
+msgstr "Vuoi eliminare?"
+
+#: src/err_dialog_handler.c:95
+msgid "Do you want to delete current file?"
+msgstr "Vuoi eliminare il file corrente?"
+
+#: src/err_dialog_handler.c:97
+msgid "Wanna overwrite?"
+msgstr "Vuoi sovrascrivere?"
+
+#: src/err_dialog_handler.c:98
+msgid "The file already exists. Do you want to overwrite?"
+msgstr "Il file esiste già. Vuoi sovrascrivere?"
+
+#: src/err_dialog_handler.c:100
+msgid "Enter file name"
+msgstr "Inserisci un nome di file"
+
+#: src/err_dialog_handler.c:100
+msgid "Enter new file name"
+msgstr "Inserisci un nuovo nome di file"
+
+#: src/err_dialog_handler.c:102
+msgid "Wanna create config file?"
+msgstr "Vuoi creare un file di configurazione?"
+
+#: src/err_dialog_handler.c:104
+msgid ""
+"Config file ~/.ripperXrc does not exist.\n"
+"Do you want to create config file?"
+msgstr ""
+"Il file di configurazioe ~/.ripperXrc non esiste.\n"
+"Vuoi crearlo?"
+
+#: src/err_dialog_handler.c:106 src/err_dialog_handler.c:110
+msgid "Low diskspace warning"
+msgstr "Avviso di spazio su disco insufficiente"
+
+#: src/err_dialog_handler.c:108
+msgid ""
+"There is less than 500 megabytes free on the wav partition.\n"
+" Do you want to continue?"
+msgstr ""
+"Ci sono meno di 500 MB liberi sulla partizione wav.\n"
+" Vuoi continuare?"
+
+#: src/err_dialog_handler.c:112
+msgid ""
+"There is less than 100 megabytes free on the mp3 partition.\n"
+" Do you want to continue?"
+msgstr ""
+"Ci sono meno di 100 MB liberi sulla partizione mp3.\n"
+" Vuoi continuare?"
+
+#: src/err_dialog_handler.c:114 src/err_dialog_handler.c:117
+msgid "Directory does not exist"
+msgstr "La cartella non esiste"
+
+#: src/err_dialog_handler.c:115
+msgid "The WAV dir does not exist. Create it?"
+msgstr "La cartella WAV non esiste. Crearla?"
+
+#: src/err_dialog_handler.c:118
+msgid "The MP3 dir does not exist. Create it?"
+msgstr "La cartella MP3 non esiste. Crearla?"
+
+#: src/err_dialog_handler.c:122
+msgid "Finished ripping"
+msgstr "Estrazione completata"
+
+#: src/err_dialog_handler.c:123
+msgid "Finished encoding"
+msgstr "Codifica completata"
+
+#: src/err_dialog_handler.c:135
+msgid "Error"
+msgstr "Errore"
+
+#: src/err_dialog_handler.c:309
+msgid "Status"
+msgstr "Stato"
+
+#: src/job_control.c:630
+#, c-format
+msgid ""
+"Tracks Completed: %2d\n"
+"\n"
+"Artist: %s\n"
+"Album: %s\n"
+"\n"
+"%s"
+msgstr ""
+"Tracce completate: %2d\n"
+"\n"
+"Artista: %s\n"
+"Album: %s\n"
+"\n"
+"%s"
+
+#: src/job_control.c:865 src/job_control.c:984
+msgid "Maybe ripperX has failed to execute the plugin"
+msgstr "ripperX potrebbe aver fallito nell'esecuzione del plugin"
+
+#: src/main_window_handler.c:149
+msgid "Scan CD"
+msgstr "Lettura CD"
+
+#: src/main_window_handler.c:150
+msgid "Stop playing"
+msgstr "Ferma l'esecuzione"
+
+#: src/main_window_handler.c:151
+msgid "Get track titles from CDDB server"
+msgstr "Ottieni i titoli delle tracce dal server CDDB"
+
+#: src/main_window_handler.c:152
+msgid "Start ripping&encoding"
+msgstr "Inizio estrazione&ecodifica"
+
+#: src/main_window_handler.c:153
+msgid "Exit the program"
+msgstr "Esci dal programma"
+
+#: src/misc_utils.c:1222
+msgid ""
+"Check if the filename format string contains format characters other than %a "
+"%# %v %y or %s."
+msgstr ""
+"Controlla se il nome del file contiene caratteri diversi da %a %# %v %y o %s."
+
+#: src/misc_utils.c:1423
+msgid "Unknown Style"
+msgstr "Stile sconosciuto"
+
+#: src/players_manipulation.c:128
+msgid "Failed to exec player :"
+msgstr "Esecuzione del lettore fallita: "
+
+#: src/ripper_encoder_manipulation.c:77
+msgid "Cannot reopen pty as stream"
+msgstr "Impossibile riaprire pty come stream"
+
+#: src/ripper_encoder_manipulation.c:251
+msgid "Failed to exec cdparanoia :"
+msgstr "Esecuzione di cdparanoia fallita: "
+
+#: src/ripper_encoder_manipulation.c:403
+msgid "Failed to exec plugin"
+msgstr "Esecuzione del plugin fallita"
+
+#: src/ripper_encoder_manipulation.c:438
+msgid "Failed to exec the specified program"
+msgstr "Esecuzione del programma specifico fallita"
+
+#: src/select_frame_handler.c:167
+msgid "Select All Tracks"
+msgstr "Seleziona tutte le tracce"
+
+#: src/select_frame_handler.c:173
+#, fuzzy
+msgid "Artist"
+msgstr "Artista"
+
+#: src/select_frame_handler.c:174
+msgid "Album"
+msgstr "Album"
+
+#: src/select_frame_handler.c:175
+msgid "Year"
+msgstr "Anno"
+
+#: src/select_frame_handler.c:176
+msgid "Genre"
+msgstr "Genere"
+
+#: src/select_frame_handler.c:191
+msgid "Rip to WAV"
+msgstr "Estrai in WAV"
+
+#: src/select_frame_handler.c:193
+msgid "Encode"
+msgstr "Codifica"
+
+#: src/status_frame_handler.c:128
+msgid "Total time elapsed: "
+msgstr "Tempo totale trascorso: "
+
+#: src/status_frame_handler.c:130
+msgid "Total time remaining: "
+msgstr "Tempo totale restante: "
+
+#: src/status_frame_handler.c:132
+msgid "Tracks completed: "
+msgstr "Tracce completate: "
+
+#: src/status_frame_handler.c:134
+msgid "Tracks remaining: "
+msgstr "Tracce rimanenti: "
+
+#: src/status_frame_handler.c:386
+msgid "Total progress"
+msgstr "Totale completato"
+
+#: src/status_frame_handler.c:391
+msgid "Time info"
+msgstr "Tempo"
+
+#: src/status_frame_handler.c:402 src/status_frame_handler.c:476
+#, c-format
+msgid "Ripping track %d"
+msgstr "Estrazione traccia %d"
+
+#: src/status_frame_handler.c:404 src/status_frame_handler.c:500
+#, c-format
+msgid "Encoding track %d"
+msgstr "Codifica traccia %d"
+
+#: src/status_frame_handler.c:490
+msgid "Not ripping"
+msgstr "Non estrarre"
+
+#: src/status_frame_handler.c:514
+msgid "Not encoding"
+msgstr "Non codificare"
+
+#~ msgid "Abort"
+#~ msgstr "Termina"
+
+#~ msgid "Pause"
+#~ msgstr "Pausa"
+
+#~ msgid "Continue"
+#~ msgstr "Continua"

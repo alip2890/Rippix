@@ -1,0 +1,46 @@
+2012-01-11  Aljosha Papsch  <papsch.al@googlemail.com>
+
+	* select_frame_handler.c (select_frame_handler): rip_or_encode_combobox has now default entry displayed. track_play_pixmap was introduced to contain images for play_button[]. track_filename_entry has hexpand property set.
+
+	* config_window_handler.c (cw_wav_handler, cw_mp3_handler): menu has now default entry displayed.
+
+	* main_window_handler.c (main_window_handler): main_frame has no label anymore. main_window has new default size 600x400. The tool_item objects in buttons[] now have tooltips.
+
+2012-01-09  Aljosha Papsch  <papsch.al@googlemail.com>
+
+	* status_frame_handler.c: Ported to GTK+3. By today, Rippix is fully ported to GTK+ 3, but doesn't look very nice atm.
+	(time_status_frame_handler): table was replaced with grid, making use of the newer GtkGrid instead of GtkTable.
+	(wm_status_frame_handler): Usage of better names (could be enhanced)
+	p_c_button is now pause_continue_button, vbox is l1_vbox, hbox was replaced with l2_hbox_rip, l2_hbox_encode and l2_hbox_total for clarifying reasons. pause_label was replaced with pause to be able to use stock buttons.
+	Under section WMS_P_C_BUTTON_ACT: pause is used to determine pause/continue state. pause_continue_button now gets a new stock label instead of destroying and allocating continue_label/pause_label.
+
+2012-01-03  Aljosha Papsch  <papsch.al@googlemail.com>
+
+	* select_frame_handler.c: Completed port to GTK+3. GtkGrid and GtkComboBoxText are now in use instead of GtkTable and GtkRadioButton's. Variables now have clearer names (hopefully ;).
+
+2011-12-30  Aljosha Papsch  <papsch.al@googlemail.com>
+
+	* main_window_handler.c (main_window_handler): Completed port to GTK+ 3. Added stock_button property to struct buttons. Code under case WIDGET_CREATE was completely rewritten, now the menu bar is not composed of GtkButtons in a GtkBox anymore, but GtkMenuToolButtons are added to a GtkToolbar.
+
+2011-12-29  Aljosha Papsch  <papsch.al@googlemail.com>
+
+	* README: Created initial version
+
+2011-12-28  Aljosha Papsch  <papsch.al@googlemail.com>
+
+	* dir_window_handler.c: GtkFileSelection objects are now GtkFileChooserDialog.
+	(dir_window_handler, dw_filew_response): response signal of filew is now used instead of clicked signals of buttons in GtkDialog.
+
+	* *.c: Ran `indent' on all sources.
+
+2011-12-27  Aljosha Papsch  <papsch.al@googlemail.com>
+
+	* config_window_handler.c: Calls to gtk_entry_new_with_max_length have been replaced with calls to gtk_entry_new and gtk_entry_set_max_length.
+	(cw_wav_handler, cw_mp3_handler): Replaced GtkOptionMenu with GtkComboBoxText.
+
+Copyright (C) 2011,2012 Aljosha Papsch <papsch.al@googlemail.com>
+
+   Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.  This file is offered as-is,
+without warranty of any kind.

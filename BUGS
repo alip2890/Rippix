@@ -1,0 +1,38 @@
+
+Copyright (C) 2011 ripperX developers (see AUTHORS for detail)
+
+   Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.  This file is offered as-is,
+without warranty of any kind.
+
+* If cdparanoia returns something that cannot be parsed suring the scan, 
+then ripperX will simply hang on startup.  This is known to occur on 
+Fedora Core 3 when the CDROM device for cdparanoia has been forced 
+(using -d <device>) and that device is not available.  In this specific 
+situation, you can either edit your ~/.ripperXrc by hand, or delete it.
+ripperX should be able to detect the cdparanoia error output correctly
+if the cdrom device is not forced.
+
+* Sometimes the calculated remaining time is way off. This happens when 
+cdparanoia finds a scratch or jitter on the CD and it must spend a LOT of 
+extra time fixing things. The calculation is based on an average of the number
+of sectors read in a certain time period. So all it takes is a few jittery
+sectors to throw the completion time off.
+
+* Sometimes, especially if using the non-http cddb protocol, ripperX will 
+appear to hang while looking up the CDDB info. This may because the network 
+connection is very slow, or it is having trouble doing a DNS lookup.
+
+* If ripperX is ever acting strange, especially after upgrading, try deleting 
+your ~/.ripperXrc file.  This should reset things to the defaults.
+
+* Don't delete the directory you started ripperX in while running ripperX. 
+Also, do not delete any of the directories used to store the mp3 or wav 
+files while the program is running.
+
+* Sometimes with new CDs you will get a CDDB error 22: CD not found in 
+database.  You can try using another CDDB server. The default one is 
+freedb.org, which sometimes is not as up to date as cddb.com. Try changing 
+the CDDB server to something like us.cddb.com (port 888) or 
+us.cddb.com/~cddb/cddb.cgi (for HTTP).

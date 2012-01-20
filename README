@@ -1,0 +1,108 @@
+Rippix - A graphical interface to CD rippers and MP3/OGG/FLAC encoders.
+
+Aljosha Papsch
+
+  Copyright (C) 2011, 2012
+  Aljosha Papsch <papsch.al@googlemail.com>
+  and ripperX developers (http://sourceforge.net/projects/ripperx/)
+
+  See AUTHORS for a full list of contributors.
+
+    Copying and distribution of this file, with or without modification,
+  are permitted in any medium without royalty provided the copyright
+  notice and this notice are preserved.  This file is offered as-is,
+  without warranty of any kind.
+  -----------------------------------------------------------------------
+
+  Table of Contents
+
+  Introduction
+  Supported Platforms
+  Features
+  Important Changes
+  Installation
+  Usage
+  License
+  Contribute
+  Packager
+
+Introduction
+
+  Rippix is a graphical interface to CD rippers and MP3/OGG/FLAC encoders.
+  It uses GTK+-3 for the GUI, GNU gettext for internationalization and
+  certain other libraries such as cdparanoia.
+
+  Sourceforge.net is currently used for the project page:
+  http://rippix.sourceforge.net
+  Since the 3.2 release, Rippix is compilable. It has some issues left, though.
+  Therefore it will retain Alpha status for some time being. Feel free to test
+  and report bugs! See the Contribute section if you want to jump on.
+
+  Rippix was forked from ripperX on 2011-12-27 using the 2.7.3 release.
+  Depending on how ripperX will evolve, Rippix might borrow code in future.
+  Because ripperX is a good ground to build up from, I'd like to
+  thank the original authors for providing the application as free software:
+
+  Tony Mancill <tmancill@users.sourceforge.net>
+  Dave Cinege <dcinege@psychosis.com>
+  jos.dehaes@bigfoot.com
+
+  The fork was done because it occured to me that ripperX might be a nice
+  application, being fast and easy to use, but in the meantime using
+  deprecated techniques and presenting the user with a rather stale GUI.
+  Also documentation is rare.
+  Rippix tries to fill this gap. The first result is a ongoing port to GTK+-3.
+  During hacking on the code it came clear to me, that I could go further
+  and introduce the fork. Here we are.
+
+  Version numbering was modified slightly and is now done in the preferred GNU way.
+  A version is now represented in the format MAJOR.MINOR, starting from 3.0,
+  Also, the package now conforms more tightly to the GNU Coding Standards.
+
+Supported Platforms
+
+  Thanks to GNU Autotools, Rippix should run on a variety of platforms.
+  The range could be limited by the dependencies, listed as follows:
+  * GTK+-3
+  * GLib
+  * gettext (currently only external backend applicable)
+  * cdparanoia
+  * id3
+
+Features
+
+  FIXME
+
+Important Changes
+
+  See ChangeLog and NEWS for a list of important changes.
+
+Installation
+
+  Refer to INSTALL for detailed instructions for compiling and installing
+  Rippix.
+
+Usage
+
+  FIXME
+
+License
+
+  Rippix is licensed under GNU GPL 3 or at your option any version later.
+  See COPYING for the full license text.
+
+Contribute
+
+  Any help is greatly appreciated. Just send me an email and I will look
+  how we will work together.
+
+  Aljosha Papsch <papsch.al@googlemail.com>
+
+Packager
+
+  You are a packager and have problems with Rippix? Then just leave me
+  a message. I will not waste your time:
+  Aljosha Papsch <papsch.al@googlemail.com>
+
+http://rippix.sf.net
+=====================================================================
