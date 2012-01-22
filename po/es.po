@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ripperX\n"
 "Report-Msgid-Bugs-To: tmancill@users.sourceforge.net\n"
-"POT-Creation-Date: 2012-01-11 20:49+0100\n"
+"POT-Creation-Date: 2012-01-22 20:53+0100\n"
 "PO-Revision-Date: 2007-04-01 08:32+0100\n"
 "Last-Translator: Ricardo Mones <ricardo@mones.org>\n"
 "Language-Team: Ricardo Mones <ricardo@mones.org>\n"
@@ -264,7 +264,7 @@ msgstr "Búsqueda automática al iniciar"
 msgid "You need to specify a server and a port"
 msgstr "Necesita especificar un servidor y un puerto"
 
-#: src/config_window_handler.c:1323 src/main_window_handler.c:148
+#: src/config_window_handler.c:1323 src/main_window_handler.c:150
 msgid "Configuration"
 msgstr "Configuración"
 
@@ -526,11 +526,11 @@ msgstr "Finalizada extracción"
 msgid "Finished encoding"
 msgstr "Finalizada codificación"
 
-#: src/err_dialog_handler.c:135
+#: src/err_dialog_handler.c:147
 msgid "Error"
 msgstr "Error"
 
-#: src/err_dialog_handler.c:309
+#: src/err_dialog_handler.c:278
 msgid "Status"
 msgstr "Estado"
 
@@ -555,23 +555,23 @@ msgstr ""
 msgid "Maybe ripperX has failed to execute the plugin"
 msgstr "Quizás ripperX ha fallado al ejecutar el módulo"
 
-#: src/main_window_handler.c:149
+#: src/main_window_handler.c:152
 msgid "Scan CD"
 msgstr "Escanear CD"
 
-#: src/main_window_handler.c:150
+#: src/main_window_handler.c:154
 msgid "Stop playing"
 msgstr "Detener reproducción"
 
-#: src/main_window_handler.c:151
+#: src/main_window_handler.c:156
 msgid "Get track titles from CDDB server"
 msgstr "Obtener los títulos de las pistas del servidor CDDB"
 
-#: src/main_window_handler.c:152
+#: src/main_window_handler.c:158
 msgid "Start ripping&encoding"
 msgstr "Iniciar extracción y codificación"
 
-#: src/main_window_handler.c:153
+#: src/main_window_handler.c:160
 msgid "Exit the program"
 msgstr "Salir del programa"
 

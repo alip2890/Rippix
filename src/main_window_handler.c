@@ -209,7 +209,7 @@ main_window_handler (int ops, char *statusbar_msg, _main_data * main_data)
 	      (buttons[pos_button].stock_icon);
 	    gtk_widget_set_tooltip_text(GTK_WIDGET(tool_item),
 					buttons[pos_button].tooltip);
-	    if (pos_button != 4)
+	    if (pos_button != 5)
 	      {
 		g_signal_connect(G_OBJECT(tool_item), "clicked",
 				 G_CALLBACK(buttons[pos_button].func),

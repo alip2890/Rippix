@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ripperx 2.7.2-2\n"
 "Report-Msgid-Bugs-To: tmancill@users.sourceforge.net\n"
-"POT-Creation-Date: 2012-01-11 20:49+0100\n"
+"POT-Creation-Date: 2012-01-22 20:53+0100\n"
 "PO-Revision-Date: 2009-10-07 22:09+0200\n"
 "Last-Translator: Chris Leick <c.leick@vollbio.de>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
@@ -265,7 +265,7 @@ msgstr "Automatisches Nachschlagen beim Start"
 msgid "You need to specify a server and a port"
 msgstr "Sie müssen einen Server und einen Port angeben"
 
-#: src/config_window_handler.c:1323 src/main_window_handler.c:148
+#: src/config_window_handler.c:1323 src/main_window_handler.c:150
 msgid "Configuration"
 msgstr "Einrichtung"
 
@@ -529,11 +529,11 @@ msgstr "Rippen abgeschlossen"
 msgid "Finished encoding"
 msgstr "Kodieren abgeschlossen"
 
-#: src/err_dialog_handler.c:135
+#: src/err_dialog_handler.c:147
 msgid "Error"
 msgstr "Fehler"
 
-#: src/err_dialog_handler.c:309
+#: src/err_dialog_handler.c:278
 msgid "Status"
 msgstr "Status"
 
@@ -560,23 +560,23 @@ msgstr ""
 "Möglicherweise ist die Ausführung der Erweiterung durch ripperX "
 "fehlgeschlagen"
 
-#: src/main_window_handler.c:149
+#: src/main_window_handler.c:152
 msgid "Scan CD"
 msgstr "CD scannen"
 
-#: src/main_window_handler.c:150
+#: src/main_window_handler.c:154
 msgid "Stop playing"
 msgstr "Wiedergabe anhalten"
 
-#: src/main_window_handler.c:151
+#: src/main_window_handler.c:156
 msgid "Get track titles from CDDB server"
 msgstr "Spurentitel vom CDDB-Server abrufen"
 
-#: src/main_window_handler.c:152
+#: src/main_window_handler.c:158
 msgid "Start ripping&encoding"
 msgstr "Rippen & Kodieren starten"
 
-#: src/main_window_handler.c:153
+#: src/main_window_handler.c:160
 msgid "Exit the program"
 msgstr "Das Programm beenden"
 

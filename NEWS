@@ -10,6 +10,13 @@ without warranty of any kind.
 
 See ChangeLog for a detailed list of news.
 
+This is new since 3.3:
+
+ * Rippix does not crash anymore when clicking the CD-ROM and Execute button
+   the menubar.
+
+ * Error messages are displayed through GtkMessageDialog
+
 This is new since 3.2:
 
  * The main window now looks nicer. Some minor appearance issues were changed.

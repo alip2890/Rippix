@@ -1,3 +1,9 @@
+2012-01-22  Aljosha Papsch  <papsch.al@googlemail.com>
+
+	* main_window_handler.c (main_window_handler): Callbacks for the buttons in menubar are directly added and not via the buttons struct array. This solves the crash which was caused by a null pointer in the buttons array.
+
+	* err_dialog_handler.c (err_handler): Usage of GtkMessageDialog. Error message from strerror and extra message are printed to the console for the time being.
+
 2012-01-11  Aljosha Papsch  <papsch.al@googlemail.com>
 
 	* select_frame_handler.c (select_frame_handler): rip_or_encode_combobox has now default entry displayed. track_play_pixmap was introduced to contain images for play_button[]. track_filename_entry has hexpand property set.

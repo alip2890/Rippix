@@ -123,36 +123,67 @@ const char *status_msg[] = {
   N_("Finished encoding")
 };
 
-/* err_handler displays a GtkMessageDialog with an error message. */
+/* GTK3 Note: Use GtkDialog here */
 void
 err_handler (int err_code, const char *extra_msg)
 {
-  GtkWidget *error_dialog;
+  GtkWidget *window, *vbox, *hbox, *label, *separator, *button;
+  char buf[20];
 
-  /* FIXME Display the messages in the window as well. */
+  window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+  gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_CENTER);
+  gtk_window_set_title (GTK_WINDOW (window), _("Error"));
+  g_signal_connect (G_OBJECT (window), "destroy",
+		    G_CALLBACK (gtk_widget_destroyed), NULL);
+  gtk_container_set_border_width (GTK_CONTAINER (window), 5);
+
+  vbox = gtk_vbox_new (FALSE, 3);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox), 0);
+  gtk_container_add (GTK_CONTAINER (window), vbox);
+
+  sprintf (buf, "Error Code %d", err_code);
+  label = gtk_label_new (buf);
+  gtk_label_set_justify (GTK_LABEL (label), GTK_JUSTIFY_LEFT);
+  gtk_box_pack_start (GTK_BOX (vbox), label, TRUE, FALSE, 0);
+
+  label = gtk_label_new (gettext (err_msg[err_code]));
+  gtk_label_set_justify (GTK_LABEL (label), GTK_JUSTIFY_LEFT);
+  gtk_box_pack_start (GTK_BOX (vbox), label, TRUE, FALSE, 0);
+
   if (err_code < END_PERROR)
     {
-      g_warning("%s\n", strerror(errno));
+      hbox = gtk_hbox_new (FALSE, 3);
+      gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
+
+      label = gtk_label_new ("Perror: ");
+      gtk_label_set_justify (GTK_LABEL (label), GTK_JUSTIFY_LEFT);
+      gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, TRUE, 0);
+
+      label = gtk_label_new (strerror (errno));
+      gtk_label_set_justify (GTK_LABEL (label), GTK_JUSTIFY_LEFT);
+      gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, TRUE, 0);
     }
+
   if (extra_msg != NULL)
     {
-      g_warning("%s\n", extra_msg);
+      label = gtk_label_new (extra_msg);
+      gtk_label_set_justify (GTK_LABEL (label), GTK_JUSTIFY_LEFT);
+      gtk_label_set_line_wrap (GTK_LABEL (label), TRUE);
+      gtk_box_pack_start (GTK_BOX (vbox), label, TRUE, FALSE, 0);
     }
 
-  /* FIXME First argument is NULL. Pass the main window ASAP. */
-  error_dialog = gtk_message_dialog_new
-    (NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
-     GTK_BUTTONS_CLOSE, "Error Code %d", err_code);
+  separator = gtk_hseparator_new ();
+  gtk_box_pack_start (GTK_BOX (vbox), separator, FALSE, FALSE, 0);
 
-  gtk_window_set_title (GTK_WINDOW(error_dialog), _("Error"));
-  gtk_message_dialog_format_secondary_text
-    (GTK_MESSAGE_DIALOG(error_dialog), "%s", _(err_msg[err_code]));
-  g_signal_connect_swapped (G_OBJECT(error_dialog), "response",
+  button = gtk_button_new_from_stock (GTK_STOCK_OK);
+  gtk_widget_set_can_default (button, TRUE);
+  g_signal_connect_swapped (G_OBJECT (button), "clicked",
 			    G_CALLBACK (gtk_widget_destroy),
-			    G_OBJECT(error_dialog));
+			    G_OBJECT (window));
+  gtk_box_pack_start (GTK_BOX (vbox), button, TRUE, FALSE, 0);
+  gtk_widget_grab_default (button);
 
-  gtk_widget_show_all(error_dialog);
-
+  gtk_widget_show_all (window);
 }
 
 void

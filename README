@@ -32,11 +32,14 @@ Introduction
   It uses GTK+-3 for the GUI, GNU gettext for internationalization and
   certain other libraries such as cdparanoia.
 
-  Sourceforge.net is currently used for the project page:
-  http://rippix.sourceforge.net
-  Since the 3.2 release, Rippix is compilable. It has some issues left, though.
-  Therefore it will retain Alpha status for some time being. Feel free to test
-  and report bugs! See the Contribute section if you want to jump on.
+  Development is done on Savannah. You'll find everything you need there,
+  including the newest source code:
+
+  https://savannah.nongnu.org/projects/rippix/
+
+  Since version 3.4 Rippix should do it's job without crashing.
+  Nevertheless it will retain Alpha status for some time being. Feel free
+  to test and report bugs! See the Contribute section if you want to jump on.
 
   Rippix was forked from ripperX on 2011-12-27 using the 2.7.3 release.
   Depending on how ripperX will evolve, Rippix might borrow code in future.
@@ -93,10 +96,11 @@ License
 
 Contribute
 
-  Any help is greatly appreciated. Just send me an email and I will look
-  how we will work together.
-
-  Aljosha Papsch <papsch.al@googlemail.com>
+  Any help is greatly appreciated. If you want to report bugs use the
+  Savannah bug tracker:
+  https://savannah.nongnu.org/bugs/?group=rippix
+  Savannah has also a place for general questions:
+  https://savannah.nongnu.org/support/?group=rippix
 
 Packager
 
@@ -104,5 +108,5 @@ Packager
   a message. I will not waste your time:
   Aljosha Papsch <papsch.al@googlemail.com>
 
-http://rippix.sf.net
+https://savannah.nongnu.org/projects/rippix/
 =====================================================================
