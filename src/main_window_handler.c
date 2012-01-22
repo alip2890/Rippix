@@ -129,6 +129,7 @@ mw_exit_button_clicked (GtkWidget * widget, gpointer callback_data)
 GtkWidget *
 main_window_handler (int ops, char *statusbar_msg, _main_data * main_data)
 {
+
   static GtkWidget *main_frame, *statusbar;
   static int saved_mode;
   static int count = 0;
@@ -137,7 +138,7 @@ main_window_handler (int ops, char *statusbar_msg, _main_data * main_data)
   {
     GtkToolItem *tool_item;
     void *func;
-    gpointer callback_data;
+    //    gpointer callback_data;
     int arrangement;
     /* If arrangement is TRUE, it will be packed using gtk_pack_start
      * function. Otherwise, it will use gtk_pack_end function */
@@ -145,18 +146,27 @@ main_window_handler (int ops, char *statusbar_msg, _main_data * main_data)
     char *stock_icon;
   } buttons[] =
   {
-    { NULL, mw_config_button_clicked, NULL, TRUE, N_("Configuration"), GTK_STOCK_PREFERENCES },
-    { NULL, mw_scan_button_clicked, NULL, TRUE, N_("Scan CD"), GTK_STOCK_CDROM },
-    { NULL, mw_stop_button_clicked, NULL, TRUE, N_("Stop playing"), GTK_STOCK_MEDIA_STOP },
-    { NULL, mw_cddb_button_clicked, NULL, TRUE, N_("Get track titles from CDDB server"), GTK_STOCK_NETWORK },
-    { NULL, mw_go_button_clicked, NULL, TRUE, N_("Start ripping&encoding"), GTK_STOCK_EXECUTE },
-    { NULL, mw_exit_button_clicked, NULL, FALSE, N_("Exit the program"), GTK_STOCK_QUIT }, };
+    { NULL, mw_config_button_clicked, TRUE,
+      N_("Configuration"), GTK_STOCK_PREFERENCES },
+    { NULL, mw_scan_button_clicked, TRUE,
+      N_("Scan CD"), GTK_STOCK_CDROM },
+    { NULL, mw_stop_button_clicked, TRUE,
+      N_("Stop playing"), GTK_STOCK_MEDIA_STOP },
+    { NULL, mw_cddb_button_clicked, TRUE,
+      N_("Get track titles from CDDB server"), GTK_STOCK_NETWORK },
+    { NULL, mw_go_button_clicked, TRUE,
+      N_("Start ripping&encoding"), GTK_STOCK_EXECUTE },
+    { NULL, mw_exit_button_clicked, FALSE,
+      N_("Exit the program"), GTK_STOCK_QUIT },
+  };
 
+  /*
   buttons[0].callback_data = (gpointer) main_data;
   buttons[1].callback_data = (gpointer) main_data;
   buttons[3].callback_data = (gpointer) main_data;
   buttons[4].callback_data = (gpointer) main_data;
   buttons[5].callback_data = (gpointer) & saved_mode;
+  */
 
   switch (ops)
     {
@@ -195,9 +205,23 @@ main_window_handler (int ops, char *statusbar_msg, _main_data * main_data)
 	for (pos_button = 0; pos_button < num_buttons; pos_button++)
 	  {
 	    GtkToolItem *tool_item;
-	    tool_item = gtk_menu_tool_button_new_from_stock(buttons[pos_button].stock_icon);
-	    gtk_widget_set_tooltip_text(GTK_WIDGET(tool_item), buttons[pos_button].tooltip);
-	    g_signal_connect(G_OBJECT(tool_item), "clicked", G_CALLBACK(buttons[pos_button].func), (gpointer) buttons[pos_button].callback_data);
+	    tool_item = gtk_menu_tool_button_new_from_stock
+	      (buttons[pos_button].stock_icon);
+	    gtk_widget_set_tooltip_text(GTK_WIDGET(tool_item),
+					buttons[pos_button].tooltip);
+	    if (pos_button != 4)
+	      {
+		g_signal_connect(G_OBJECT(tool_item), "clicked",
+				 G_CALLBACK(buttons[pos_button].func),
+				 main_data);
+	      }
+	    else
+	      {
+		g_signal_connect(G_OBJECT(tool_item), "clicked",
+				 G_CALLBACK(buttons[pos_button].func),
+				 &saved_mode);
+	      }
+
 	    gtk_toolbar_insert(GTK_TOOLBAR(toolbar), GTK_TOOL_ITEM(tool_item), -1);
 	    buttons[pos_button].tool_item = tool_item;
 	  }
