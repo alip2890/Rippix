@@ -130,7 +130,7 @@ GtkWidget *
 main_window_handler (int ops, char *statusbar_msg, _main_data * main_data)
 {
 
-  static GtkWidget *main_frame, *statusbar;
+  static GtkWidget *main_window = NULL, *main_frame, *statusbar;
   static int saved_mode;
   static int count = 0;
 
@@ -172,7 +172,7 @@ main_window_handler (int ops, char *statusbar_msg, _main_data * main_data)
     {
     case WIDGET_CREATE:
       {
-	GtkWidget *main_window, *vbox;
+	GtkWidget *vbox;
 	GtkWidget *toolbar;
 	int pos_button, num_buttons;
 	char welcome_msg_buf[100];
@@ -302,6 +302,12 @@ main_window_handler (int ops, char *statusbar_msg, _main_data * main_data)
 	gtk_statusbar_push (GTK_STATUSBAR (statusbar), 1, statusbar_msg);
 	return main_frame;
       }
+
+    case MW_REQUEST_MW:
+      {
+	return main_window;
+      }
+
     case MW_REQUEST_MF:
       return main_frame;
 
@@ -326,6 +332,7 @@ check_dirs ()
 {
   long wav_free, mp3_free;
   int rc;
+  GtkWidget *main_window = main_window_handler(MW_REQUEST_MW, NULL, NULL);
 
   rc = check_dir (config.wav_path);
   switch (rc)
@@ -340,14 +347,14 @@ check_dirs ()
 	{
 	  if (create_dir (config.wav_path) != 0)
 	    {
-	      err_handler (29, NULL);
+	      err_handler (GTK_WINDOW(main_window), 29, NULL);
 	      return 0;
 	    }
 	}
       break;
     case MISC_NOT_DIR:
     case MISC_NOT_WRITABLE:
-      err_handler (27, NULL);
+      err_handler (GTK_WINDOW(main_window), 27, NULL);
       return 0;
       break;
     }
@@ -365,14 +372,14 @@ check_dirs ()
 	{
 	  if (create_dir (config.mp3_path) != 0)
 	    {
-	      err_handler (30, NULL);
+	      err_handler (GTK_WINDOW(main_window), 30, NULL);
 	      return 0;
 	    }
 	}
       break;
     case MISC_NOT_DIR:
     case MISC_NOT_WRITABLE:
-      err_handler (28, NULL);
+      err_handler (GTK_WINDOW(main_window), 28, NULL);
       return 0;
       break;
     }

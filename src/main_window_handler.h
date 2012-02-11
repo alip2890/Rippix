@@ -32,6 +32,7 @@
 #define MW_REQUEST_MF               105
 #define NO_CD_INDRIVE               106
 #define CD_INDRIVE                  107
+#define MW_REQUEST_MW               108
 
 /* Creates main window. Returns the pointer to main frame which will be
  * used by select frame and update frames. ops can be one of WIDGET_CREATE,

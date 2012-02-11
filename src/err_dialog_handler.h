@@ -21,6 +21,7 @@
 #ifndef ERR_DIALOG_HANDLER_H
 #define ERR_IDALOG_HANDLER_H
 
+#include <gtk/gtk.h>
 #include "common.h"
 
 /* Error codes */
@@ -84,8 +85,26 @@
 #define DL_OK_PRESSED				100
 
 /* Function Prototypes */
-void err_handler( int err_code, const char *extra_msg );
 
+/* Displays a frame with an error message.
+   main_window   : The parent window for the message dialog
+   err_code      : The message index number in err_msg[]
+   extra_msg     : Extra error message apart from the one in err_msg[]
+ */
+void err_handler( GtkWindow *main_window, int err_code, const char *extra_msg);
+
+/* Displays a frame with question to confirm or abort.
+   ops           : Either WIDGET_CREATE or DL_OK_PRESSED (deprecated)
+   ok_or_yes     : Displays the dialog with OK, Cancel or
+                   Yes, No buttons.
+   dialog_code   : The message index number in dialog_data[]
+   with_entry    : Displays a GtkEntry when TRUE
+   entry_default : If with_entry == TRUE this is the text to be in
+                   the button. If with_entry == FALSE, then this is
+		   displayed as a label.
+   entered       : This is only used to initialize saved_entered once.
+   answer_length : Used to set the maximal length for the entry
+ */
 int dialog_handler( int ops, int ok_or_yes, int dialog_code,
                     int with_entry, char *entry_default,
                     char *entered, int answer_length );

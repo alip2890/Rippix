@@ -32,6 +32,7 @@
 
 #include "misc_utils.h"
 #include "interface_common.h"
+#include "main_window_handler.h"
 
 #include "dir_window_handler.h"
 
@@ -126,11 +127,12 @@ dir_window_handler (int ops, char *cur_dir)
       {
 	struct stat st;
 	char *temp;
+	GtkWidget *main_window = main_window_handler(MW_REQUEST_MW, NULL, NULL);
 
 	temp = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filew));
 	if (lstat (temp, &st) < 0)
 	  {
-	    err_handler (INVALID_FILE_SELECTION_ERR, NULL);
+	    err_handler (GTK_WINDOW(main_window), INVALID_FILE_SELECTION_ERR, NULL);
 	    return NULL;
 	  }
 	if (!S_ISDIR (st.st_mode))

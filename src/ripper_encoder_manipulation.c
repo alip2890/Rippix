@@ -2,6 +2,7 @@
    Tony Mancill <tmancill@users.sourceforge.net>
    Dave Cinege <dcinege@psychosis.com>
    jos.dehaes@bigfoot.com
+   Aljosha Papsch <papsch.al@googlemail.com>
 
    This file is part of Rippix.
 
@@ -39,6 +40,7 @@
 #include <pty.h>
 
 #include "ripper_encoder_manipulation.h"
+#include "main_window_handler.h"
 #include "misc_utils.h"
 
 
@@ -71,10 +73,12 @@ process_cd_contents_output (_main_data * main_data, int fd)
   int err_code = CD_PARANOIA_MISC_ERR;	// err... what should it default to?
   int cdparanoia_toc = FALSE;	// assume failure to get the table of contents
 
+  GtkWidget *main_window = main_window_handler(MW_REQUEST_MW, NULL, NULL);
+
   /* Reopen the pipe as stream */
   if ((stream = fdopen (fd, "r")) == NULL)
     {
-      err_handler (FDOPEN_ERR, _("Cannot reopen pty as stream"));
+      err_handler (GTK_WINDOW(main_window), FDOPEN_ERR, _("Cannot reopen pty as stream"));
       return -1;
     }
 
@@ -83,7 +87,7 @@ process_cd_contents_output (_main_data * main_data, int fd)
   if (strncmp ("cdparanoia III", buf, 14) != 0)
     {
       strcpy (errmsg, buf);
-      err_handler (CD_PARANOIA_MISC_ERR, errmsg);
+      err_handler (GTK_WINDOW(main_window), CD_PARANOIA_MISC_ERR, errmsg);
       return -1;
     }
 
@@ -133,7 +137,7 @@ process_cd_contents_output (_main_data * main_data, int fd)
    * indicate exec failure */
   if (temp == NULL)
     {
-      err_handler (PIPE_READ_ERR, NULL);
+      err_handler (GTK_WINDOW(main_window), PIPE_READ_ERR, NULL);
       return -1;
     }
 
@@ -142,7 +146,7 @@ process_cd_contents_output (_main_data * main_data, int fd)
     {
       //strncpy( errmsg, buf, BUF_LENGTH_FOR_F_SCAN_CD );
       //err_handler( err_code, errmsg );
-      err_handler (err_code, NULL);
+      err_handler (GTK_WINDOW(main_window), err_code, NULL);
       return -1;
     }
 
@@ -206,17 +210,19 @@ scan_cd (_main_data * main_data)
   int null_fd, pty_fd, tty_fd;
   int return_value;
 
+  GtkWidget *main_window = main_window_handler(MW_REQUEST_MW, NULL, NULL);
+
   /* Open a pty */
   if (openpty (&pty_fd, &tty_fd, NULL, NULL, NULL))
     {
-      err_handler (PTY_OPEN_ERR, NULL);
+      err_handler (GTK_WINDOW(main_window), PTY_OPEN_ERR, NULL);
       return -1;
     }
 
   /* Open /dev/null */
   if ((null_fd = open ("/dev/null", O_WRONLY)) < 0)
     {
-      err_handler (NULL_OPEN_ERR, NULL);
+      err_handler (GTK_WINDOW(main_window), NULL_OPEN_ERR, NULL);
       return -1;
     }
 
@@ -228,7 +234,7 @@ scan_cd (_main_data * main_data)
   /* Fork */
   if ((pid = fork ()) < 0)
     {
-      err_handler (FORK_ERR, NULL);
+      err_handler (GTK_WINDOW(main_window), FORK_ERR, NULL);
       return -1;
     }
 
@@ -345,6 +351,8 @@ execute_ripper_encoder_with_plugin (char *pg_com,
   char **program_argv, **plugin_argv;
   pid_t pid;
 
+  GtkWidget *main_window = main_window_handler(MW_REQUEST_MW, NULL, NULL);
+
   // build argvs
   if ((program_argv = create_argv_for_execution_using_shell (pg_com)) == NULL)
     return -1;
@@ -359,7 +367,7 @@ execute_ripper_encoder_with_plugin (char *pg_com,
     {
       free_argv (plugin_argv);
       free_argv (program_argv);
-      err_handler (PTY_OPEN_ERR, NULL);
+      err_handler (GTK_WINDOW(main_window), PTY_OPEN_ERR, NULL);
       return -1;
     }
   if (openpty (&pty_fd1, &tty_fd1, NULL, NULL, NULL))
@@ -368,7 +376,7 @@ execute_ripper_encoder_with_plugin (char *pg_com,
       free_argv (program_argv);
       close (pty_fd0);
       close (tty_fd0);
-      err_handler (PTY_OPEN_ERR, NULL);
+      err_handler (GTK_WINDOW(main_window), PTY_OPEN_ERR, NULL);
       return -1;
     }
 
@@ -381,7 +389,7 @@ execute_ripper_encoder_with_plugin (char *pg_com,
       close (tty_fd0);
       close (pty_fd1);
       close (tty_fd1);
-      err_handler (FORK_ERR, NULL);
+      err_handler (GTK_WINDOW(main_window), FORK_ERR, NULL);
       return -1;
     }
   *plugin_pid = pid;
@@ -416,7 +424,7 @@ execute_ripper_encoder_with_plugin (char *pg_com,
       close (tty_fd0);
       close (pty_fd1);
       kill (*plugin_pid, SIGTERM);
-      err_handler (FORK_ERR, NULL);
+      err_handler (GTK_WINDOW(main_window), FORK_ERR, NULL);
       return -1;
     }
   *program_pid = pid;

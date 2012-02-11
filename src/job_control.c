@@ -2,6 +2,7 @@
    Tony Mancill <tmancill@users.sourceforge.net>
    Dave Cinege <dcinege@psychosis.com>
    jos.dehaes@bigfoot.com
+   Aljosha Papsch <papsch.al@googlemail.com>
 
    This file is part of Rippix.
 
@@ -368,6 +369,8 @@ lock_file (char *file_name, int is_temp)
   char *temp;
   char buf[MAX_FILE_NAME_LENGTH];
 
+  GtkWidget *main_window = main_window_handler(MW_REQUEST_MW, NULL, NULL);
+
   fd = open (file_name,
 	     O_CREAT | O_EXCL,
 	     S_IWUSR | S_IRUSR | S_IRGRP | S_IWGRP | S_IROTH);
@@ -430,7 +433,7 @@ lock_file (char *file_name, int is_temp)
 	  }
       else			/* an other error (maybe directory not existent */
 	{
-	  err_handler (CREATING_FILE_ERROR, file_name);
+	  err_handler (GTK_WINDOW(main_window), CREATING_FILE_ERROR, file_name);
 	  return -1;
 	}
     }
@@ -743,6 +746,7 @@ job_controller (int ops, _main_data * main_data)
   char msg[MAX_PLUGIN_OUTPUT_LENGTH];
   char *str;
   int temp, temp_track;
+  GtkWidget *main_window = main_window_handler (MW_REQUEST_MW, NULL, NULL);
 
   switch (ops)
     {
@@ -752,7 +756,7 @@ job_controller (int ops, _main_data * main_data)
 
       if (wav_cur_track != -1)
 	{
-	  err_handler (JOB_IN_PROGRESS_ERR, NULL);
+	  err_handler (GTK_WINDOW(main_window), JOB_IN_PROGRESS_ERR, NULL);
 	  job_finisher (main_data);
 	  return;
 	}
@@ -765,7 +769,7 @@ job_controller (int ops, _main_data * main_data)
 			     &mp3_cur_track, &cur_type) < 0)
 	    {
 	      /* nothing at all found */
-	      err_handler (NOTHING_TO_DO_ERR, NULL);
+	      err_handler (GTK_WINDOW(main_window), NOTHING_TO_DO_ERR, NULL);
 	      job_finisher (main_data);
 	      return;
 	    }
@@ -860,7 +864,7 @@ job_controller (int ops, _main_data * main_data)
 	      if (wav_pi_pid >= 0)
 		if (waitpid (wav_pi_pid, NULL, WNOHANG) == wav_pi_pid)
 		  {
-		    err_handler (PLUGIN_NOT_PRESENT_ERR,
+		    err_handler (GTK_WINDOW(main_window), PLUGIN_NOT_PRESENT_ERR,
 				 _
 				 ("Maybe ripperX has failed to execute the plugin"));
 		    wav_pi_pid = -1;
@@ -979,7 +983,7 @@ job_controller (int ops, _main_data * main_data)
 	      if (mp3_pi_pid >= 0)
 		if (waitpid (mp3_pi_pid, NULL, WNOHANG) == mp3_pi_pid)
 		  {
-		    err_handler (PLUGIN_NOT_PRESENT_ERR,
+		    err_handler (GTK_WINDOW(main_window), PLUGIN_NOT_PRESENT_ERR,
 				 _
 				 ("Maybe ripperX has failed to execute the plugin"));
 		    mp3_pi_pid = -1;
@@ -1015,7 +1019,7 @@ job_controller (int ops, _main_data * main_data)
 						   &wav_file_path,
 						   &enc_file_path);
 		      if (unlink (wav_file_path) < 0)
-			err_handler (FILE_DELETE_ERR, wav_file_path);
+			err_handler (GTK_WINDOW(main_window), FILE_DELETE_ERR, wav_file_path);
 		      /* Mark that it has been deleted */
 		      main_data->track[mp3_cur_track].wav_exist = FALSE;
 
@@ -1175,14 +1179,14 @@ job_controller (int ops, _main_data * main_data)
 	      create_file_names_for_track (main_data, wav_cur_track,
 					   &wav_file_path, &enc_file_path);
 	      if (unlink (wav_file_path) < 0)
-		err_handler (FILE_DELETE_ERR, wav_file_path);
+		err_handler (GTK_WINDOW(main_window), FILE_DELETE_ERR, wav_file_path);
 	    }
 	  if (mp3_cur_track != -1)
 	    {
 	      create_file_names_for_track (main_data, mp3_cur_track, NULL,
 					   &enc_file_path);
 	      if (unlink (enc_file_path) < 0)
-		err_handler (FILE_DELETE_ERR, enc_file_path);
+		err_handler (GTK_WINDOW(main_window), FILE_DELETE_ERR, enc_file_path);
 	    }
 	}
       else

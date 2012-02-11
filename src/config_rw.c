@@ -2,6 +2,7 @@
    Tony Mancill <tmancill@users.sourceforge.net>
    Dave Cinege <dcinege@psychosis.com>
    jos.dehaes@bigfoot.com
+   Aljosha Papsch <papsch.al@googlemail.com>
 
    This file is part of Rippix.
 
@@ -31,6 +32,7 @@
 #include "misc_utils.h"
 #include "interface_common.h"
 #include "version.h"
+#include "main_window_handler.h"
 
 #include "config_rw.h"
 
@@ -166,6 +168,7 @@ read_an_item (int item_num, char *src)
   float *p_float;
   int *p_int;
   int i, len;
+  GtkWindow *main_window = main_window_handler(MW_REQUEST_MW, NULL, NULL);
 
   switch (config_rw_data[item_num].type)
     {
@@ -195,7 +198,7 @@ read_an_item (int item_num, char *src)
       break;
 
     default:
-      err_handler (CONFIG_PARSE_ERR, NULL);
+      err_handler (GTK_WINDOW(main_window), CONFIG_PARSE_ERR, NULL);
       break;
     }
 }
@@ -225,6 +228,7 @@ write_config (void)
   char t_char;
   float t_float;
   int t_int;
+  GtkWidget *main_window = main_window_handler(MW_REQUEST_MW, NULL, NULL);
 
   fd = open (construct_file_name (getenv ("HOME"), ".ripperXrc"),
 	     O_WRONLY | O_TRUNC);
@@ -240,17 +244,17 @@ write_config (void)
 		     O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR | S_IWUSR);
 	  if (fd < 0)
 	    {
-	      err_handler (CONFIG_CREATION_ERR, "");
+	      err_handler (GTK_WINDOW(main_window), CONFIG_CREATION_ERR, "");
 	      return;
 	    }
 	}
       else
-	err_handler (CONFIG_OPEN_ERR, "");
+	err_handler (GTK_WINDOW(main_window), CONFIG_OPEN_ERR, "");
     }
 
   if ((file = fdopen (fd, "w")) == NULL)
     {
-      err_handler (FDOPEN_ERR, "Cannot re-open config file as a stream");
+      err_handler (GTK_WINDOW(main_window), FDOPEN_ERR, "Cannot re-open config file as a stream");
       close (fd);
       return;
     }
@@ -311,6 +315,7 @@ read_config (void)
   char buf[MAX_CONFIG_LINE_LENGTH + 1];
   int i, offset;
   int flag;
+  GtkWidget *main_window = main_window_handler(MW_REQUEST_MW, NULL, NULL);
 
   memset (&config, 0, sizeof (_config));
 
@@ -321,7 +326,7 @@ read_config (void)
       config_to_default (-1);
       if (errno != ENOENT)
 	{
-	  err_handler (CONFIG_OPEN_ERR, NULL);
+	  err_handler (GTK_WINDOW(main_window), CONFIG_OPEN_ERR, NULL);
 	  return;
 	}
       write_config ();
@@ -370,7 +375,7 @@ read_config (void)
     }
 
   if (flag)
-    err_handler (CONFIG_EMPTY_ITEM_ERR, "");
+    err_handler (GTK_WINDOW(main_window), CONFIG_EMPTY_ITEM_ERR, "");
 
   return;
 }

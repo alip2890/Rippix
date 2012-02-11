@@ -2,6 +2,7 @@
    Tony Mancill <tmancill@users.sourceforge.net>
    Dave Cinege <dcinege@psychosis.com>
    jos.dehaes@bigfoot.com
+   Aljosha Papsch <papsch.al@googlemail.com>
 
    This file is part of Rippix.
 
@@ -42,6 +43,7 @@
 #include <id3.h>
 #include <glib.h>
 
+#include "main_window_handler.h"
 #include "misc_utils.h"
 
 
@@ -50,6 +52,7 @@ int
 add_argv (char **dest, char *content)
 {
   size_t i;
+  GtkWidget *main_window = main_window_handler(MW_REQUEST_MW, NULL, NULL);
 
   i = 0;
 
@@ -57,7 +60,7 @@ add_argv (char **dest, char *content)
 
   if ((*dest = malloc (i)) == NULL)
     {
-      err_handler (MALLOC_ERR, NULL);
+      err_handler (GTK_WINDOW(main_window), MALLOC_ERR, NULL);
       return FALSE;
     }
 
@@ -70,6 +73,7 @@ process_options (char *options, char **argv, int start, int end)
 {
   int current, i, j, flag;
   char buf[MAX_SINGLE_OPTION_LENGTH];
+  GtkWidget *main_window = main_window_handler(MW_REQUEST_MW, NULL, NULL);
 
   current = start;
   i = 0;
@@ -98,7 +102,7 @@ process_options (char *options, char **argv, int start, int end)
 	    }
 	  else
 	    {
-	      err_handler (TOO_MANY_ARGS_ERR, NULL);
+	      err_handler (GTK_WINDOW(main_window), TOO_MANY_ARGS_ERR, NULL);
 	    }
 	  current++;
 	}
@@ -111,12 +115,13 @@ create_argv_for_execution_using_shell (char *command)
 {
   char *shell;
   char **argv;
+  GtkWidget *main_window = main_window_handler(MW_REQUEST_MW, NULL, NULL);
 
   shell = config.shell_for_execution;
 
   if ((argv = (char **) malloc (sizeof (char *) * 4)) == NULL)
     {
-      err_handler (MALLOC_ERR, NULL);
+      err_handler (GTK_WINDOW(main_window), MALLOC_ERR, NULL);
       return NULL;
     }
   argv[0] = NULL;
@@ -1134,6 +1139,7 @@ create_filenames_from_format (_main_data * main_data)
   int i;
   int rc2;
   static unsigned char *df;
+  GtkWidget *main_window = main_window_handler(MW_REQUEST_MW, NULL, NULL);
 
   i = strlen (config.wav_path) - 1;
   if (i >= 0 && config.wav_path[i] == '/')
@@ -1151,7 +1157,7 @@ create_filenames_from_format (_main_data * main_data)
 				    main_data->disc_year, "");
       if (rc2 < 0)
 	{
-	  err_handler (RX_PARSING_ERR,
+	  err_handler (GTK_WINDOW(main_window), RX_PARSING_ERR,
 		       "Check if the directory format string contains format characters other than %a %# %v %y or %s.");
 	  return 0;
 	}
@@ -1209,6 +1215,7 @@ create_file_names_for_track (_main_data * main_data, int track, char **wfp,
   static char *buffer;
   int rc;
   char *conv_str = NULL;
+  GtkWidget *main_window = main_window_handler(MW_REQUEST_MW, NULL, NULL);
 
   rc = parse_rx_format_string (&buffer,
 			       config.cddb_config.format_string, track,
@@ -1217,7 +1224,7 @@ create_file_names_for_track (_main_data * main_data, int track, char **wfp,
 			       main_data->track[track].title);
   if (rc < 0)
     {
-      err_handler (RX_PARSING_ERR,
+      err_handler (GTK_WINDOW(main_window), RX_PARSING_ERR,
 		   _
 		   ("Check if the filename format string contains format characters other than %a %# %v %y or %s."));
       return 0;

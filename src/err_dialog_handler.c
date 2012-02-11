@@ -123,9 +123,10 @@ const char *status_msg[] = {
   N_("Finished encoding")
 };
 
-/* err_handler displays a GtkMessageDialog with an error message. */
+/* err_handler displays a GtkMessageDialog with an error message.
+ */
 void
-err_handler (int err_code, const char *extra_msg)
+err_handler (GtkWindow *main_window, int err_code, const char *extra_msg)
 {
   GtkWidget *error_dialog;
 
@@ -139,10 +140,9 @@ err_handler (int err_code, const char *extra_msg)
       g_warning("%s\n", extra_msg);
     }
 
-  /* FIXME First argument is NULL. Pass the main window ASAP. */
   error_dialog = gtk_message_dialog_new
-    (NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
-     GTK_BUTTONS_CLOSE, "Error Code %d", err_code);
+    (main_window, GTK_DIALOG_DESTROY_WITH_PARENT,
+     GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, "Error Code %d", err_code);
 
   gtk_window_set_title (GTK_WINDOW(error_dialog), _("Error"));
   gtk_message_dialog_format_secondary_text

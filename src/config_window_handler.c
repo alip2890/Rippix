@@ -83,6 +83,7 @@ cw_general_handler (int ops, _main_data * main_data, GtkWidget * notebook)
   static GtkWidget *make_mp3_from_existing_wav_check_button;
   static GtkWidget *ask_when_file_exists_check_button;
   static GtkWidget *keep_wav_check_button;
+  GtkWidget *main_window = main_window_handler(MW_REQUEST_MW, NULL, NULL);
   char buf[2];
 
   switch (ops)
@@ -240,7 +241,7 @@ cw_general_handler (int ops, _main_data * main_data, GtkWidget * notebook)
 	  || strlen (gtk_entry_get_text (GTK_ENTRY (prepend_char_entry))) ==
 	  0)
 	{
-	  err_handler (EMPTY_ENTRY_ERR,
+	  err_handler (GTK_WINDOW(main_window), EMPTY_ENTRY_ERR,
 		       _("You need to fill every entry in general page"));
 	  return -1;
 	}
@@ -891,6 +892,7 @@ cw_players_handler (int ops, _main_data * main_data, GtkWidget * notebook)
   static GtkWidget *main_frame;
   static GtkWidget *cd_play_entry, *cd_stop_entry;
   static GtkWidget *wav_entry, *mp3_entry;
+  GtkWidget *main_window = main_window_handler(MW_REQUEST_MW, NULL, NULL);
 
   switch (ops)
     {
@@ -959,7 +961,7 @@ cw_players_handler (int ops, _main_data * main_data, GtkWidget * notebook)
 	    || strlen (gtk_entry_get_text (GTK_ENTRY (wav_entry))) == 0
 	    || strlen (gtk_entry_get_text (GTK_ENTRY (mp3_entry))) == 0)
 	  {
-	    err_handler (EMPTY_ENTRY_ERR,
+	    err_handler (GTK_WINDOW(main_window), EMPTY_ENTRY_ERR,
 			 _("You need to fill every entry in players page"));
 	    return -1;
 	  }
@@ -1141,6 +1143,8 @@ cw_cddb_handler (int ops, _main_data * main_data, GtkWidget * notebook)
   static GtkWidget *table, *vbox, *hbox;
   char *cddb_port_num, *cddb_proxy_port_num;
 
+  GtkWidget *main_window = main_window_handler(MW_REQUEST_MW, NULL, NULL);
+
   switch (ops)
     {
     case WIDGET_CREATE:
@@ -1255,7 +1259,7 @@ cw_cddb_handler (int ops, _main_data * main_data, GtkWidget * notebook)
       if (strlen (gtk_entry_get_text (GTK_ENTRY (cddb_server_entry))) == 0
 	  || strlen (gtk_entry_get_text (GTK_ENTRY (cddb_port_entry))) == 0)
 	{
-	  err_handler (EMPTY_ENTRY_ERR,
+	  err_handler (GTK_WINDOW(main_window), EMPTY_ENTRY_ERR,
 		       _("You need to specify a server and a port"));
 	  return -1;
 	}

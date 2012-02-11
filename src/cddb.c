@@ -2,6 +2,7 @@
    Tony Mancill <tmancill@users.sourceforge.net>
    Dave Cinege <dcinege@psychosis.com>
    jos.dehaes@bigfoot.com
+   Aljosha Papsch <papsch.al@googlemail.com>
 
    This file is part of Rippix.
 
@@ -600,6 +601,9 @@ cddb_main (_main_data * main_data)
   char *year = NULL;
   char *dgenre = NULL;
 
+  /* Main window is needed for error message dialog */
+  GtkWidget *main_window = main_window_handler(MW_REQUEST_MW, NULL, NULL);
+
   int tracknum = main_data->num_tracks;
   int duration = main_data->total_length;
   long int offset[MAX_NUM_TRACK];
@@ -668,16 +672,16 @@ cddb_main (_main_data * main_data)
 
       break;
     case NO_CONNECT:
-      err_handler (CDDB_NO_CONNECT_ERR, NULL);
+      err_handler (GTK_WINDOW(main_window), CDDB_NO_CONNECT_ERR, NULL);
       break;
     case CONNECT_REFUSED:
-      err_handler (CDDB_CONNECT_REFUSED_ERR, NULL);
+      err_handler (GTK_WINDOW(main_window), CDDB_CONNECT_REFUSED_ERR, NULL);
       break;
     case SERVER_ERROR:
-      err_handler (CDDB_SERVER_ERR, NULL);
+      err_handler (GTK_WINDOW(main_window), CDDB_SERVER_ERR, NULL);
       break;
     case NOT_FOUND:
-      err_handler (CDDB_NOT_FOUND_ERR, NULL);
+      err_handler (GTK_WINDOW(main_window), CDDB_NOT_FOUND_ERR, NULL);
       break;
     }
 

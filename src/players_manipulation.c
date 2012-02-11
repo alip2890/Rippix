@@ -2,6 +2,7 @@
    Tony Mancill <tmancill@users.sourceforge.net>
    Dave Cinege <dcinege@psychosis.com>
    jos.dehaes@bigfoot.com
+   Aljosha Papsch <papsch.al@googlemail.com>
 
    This file is part of Rippix.
 
@@ -35,6 +36,7 @@
 #include <string.h>
 
 #include "misc_utils.h"
+#include "main_window_handler.h"
 
 #include "players_manipulation.h"
 
@@ -85,13 +87,14 @@ play_cd_wav_mp3 (int ops, int cd_wav_mp3, char *playit)
   pid_t pid;
   static pid_t saved_pid;
   static int is_first_time = 1;
+  GtkWidget *main_window = main_window_handler(MW_REQUEST_MW, NULL, NULL);
 
   if (is_first_time)
     {
       /* Open /dev/null */
       if ((null_fd = open ("/dev/null", O_WRONLY)) < 0)
 	{
-	  err_handler (NULL_OPEN_ERR, NULL);
+	  err_handler (GTK_WINDOW(main_window), NULL_OPEN_ERR, NULL);
 	  return FALSE;
 	}
       is_first_time = 0;
@@ -108,7 +111,7 @@ play_cd_wav_mp3 (int ops, int cd_wav_mp3, char *playit)
       /* Fork */
       if ((pid = fork ()) < 0)
 	{
-	  err_handler (FORK_ERR, NULL);
+	  err_handler (GTK_WINDOW(main_window), FORK_ERR, NULL);
 	  free_argv (argv);
 	  return FALSE;
 	}
