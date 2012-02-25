@@ -2,3 +2,5 @@ GPATH
 GTAGS
 GRTAGS
 gnulinux/
+autom4te.cache/
+config.h.in~

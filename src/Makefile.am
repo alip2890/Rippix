@@ -18,11 +18,12 @@
 
 bin_PROGRAMS = rippix
 
-rippix_SOURCES = \
+rippix_SOURCES = gettext.h \
 	cddb.c cddb.h \
 	cddbp.c cddbp.h \
 	common.h \
-	config_rw.c config_rw.h \
+	rw_config.c rw_config.h \
+	windowbuilder.c windowbuilder.h \
 	config_window_handler.c config_window_handler.h \
 	dir_window_handler.c dir_window_handler.h \
 	err_dialog_handler.c err_dialog_handler.h \
@@ -34,38 +35,16 @@ rippix_SOURCES = \
         players_manipulation.c players_manipulation.h \
         ripper_encoder_manipulation.c ripper_encoder_manipulation.h \
         select_frame_handler.c select_frame_handler.h \
-        status_frame_handler.c status_frame_handler.h \
-	version.h
-
-#EXTRA_DIST = \
-	xpms/cddb.xpm \
-	xpms/config.xpm \
-	xpms/doall.xpm \
-	xpms/exit.xpm \
-	xpms/go.xpm \
-	xpms/ripperX-icon.xpm \
-	xpms/ripperX.xpm \
-	xpms/ripperX_box.xpm \
-	xpms/s_button_checked.xpm \
-	xpms/s_button_unchecked.xpm \
-	xpms/s_play_button_disabled.xpm \
-	xpms/s_play_button_enabled.xpm \
-	xpms/scan.xpm \
-	xpms/stop.xpm
-
-#INCLUDES = \
-	-DG_LOG_DOMAIN=\"rippix\" \
-	$(GTK_CFLAGS) \
-	-I$(includedir)
+        status_frame_handler.c status_frame_handler.h
 
 rippix_LDADD = \
 	$(INTLLIBS) \
-	$(GTK_LIBS)
+	$(DEPENDENCIES_LIBS)
 
 AM_CPPFLAGS = \
 	-DG_LOG_DOMAIN=\"rippix\" \
 	-DLOCALEDIR=\""$(localedir)"\" \
 	-DDATAROOTDIR=\""$(datarootdir)"\" \
-	$(GTK_CFLAGS)
+	$(DEPENDENCIES_CFLAGS)
 
 

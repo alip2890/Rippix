@@ -1,5 +1,11 @@
 /* config.h.in.  Generated from configure.ac by autoheader.  */
 
+/* Indicates to close the GConf database */
+#undef CONFIG_OP_CLOSE
+
+/* Indicates to open the GConf database */
+#undef CONFIG_OP_OPEN
+
 /* Define to 1 if translation of program messages to the user's native
    language is requested. */
 #undef ENABLE_NLS
@@ -142,6 +148,9 @@
 
 /* Version number of package */
 #undef VERSION
+
+/* abbrev for gettext function */
+#undef _
 
 /* Define to empty if `const' does not conform to ANSI C. */
 #undef const

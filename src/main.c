@@ -2,6 +2,7 @@
    Tony Mancill <tmancill@users.sourceforge.net>
    Dave Cinege <dcinege@psychosis.com>
    jos.dehaes@bigfoot.com
+   Aljosha Papsch <papsch.al@googlemail.com>
 
    This file is part of Rippix.
 
@@ -22,21 +23,15 @@
 #include "config.h"
 #endif
 
-#ifdef ENABLE_NLS
-#include <glib/gi18n.h>
-#else
-#define _(a) (a)
-#define N_(a) (a)
-#endif
-
+#include <locale.h>
+#include "gettext.h"
 #include "interface_common.h"
 #include "main_window_handler.h"
 #include "err_dialog_handler.h"
 #include "job_control.h"
-#include "config_rw.h"
+#include "rw_config.h"
 
 #include "main.h"
-#include "version.h"
 
 void ripperX_init (_main_data * main_data);
 
@@ -87,6 +82,7 @@ main (int argc, char *argv[])
 {
   _main_data main_data;
   gtk_init (&argc, &argv);
+
   setlocale (LC_ALL, "");
   setlocale (LC_NUMERIC, "POSIX");
 #ifdef ENABLE_NLS
@@ -94,6 +90,7 @@ main (int argc, char *argv[])
   bind_textdomain_codeset (PACKAGE, "UTF-8");
   textdomain (PACKAGE);
 #endif /*ENABLE_NLS */
+
   ripperX_init (&main_data);
   gtk_main ();
   return 0;

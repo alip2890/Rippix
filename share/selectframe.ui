@@ -155,15 +155,15 @@
                 <property name="selection_mode">multiple</property>
                 <property name="model">track_liststore</property>
                 <child>
-                  <object class="GtkCellRendererPixbuf" id="cellrendererpixbuf1"/>
-                  <attributes>
-                    <attribute name="pixbuf">1</attribute>
-                  </attributes>
-                </child>
-                <child>
                   <object class="GtkCellRendererText" id="cellrenderertext1"/>
                   <attributes>
                     <attribute name="text">0</attribute>
+                  </attributes>
+                </child>
+                <child>
+                  <object class="GtkCellRendererPixbuf" id="cellrendererpixbuf1"/>
+                  <attributes>
+                    <attribute name="pixbuf">1</attribute>
                   </attributes>
                 </child>
               </object>
