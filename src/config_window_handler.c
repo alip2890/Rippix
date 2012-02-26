@@ -34,7 +34,7 @@
 #include "select_frame_handler.h"
 #include "dir_window_handler.h"
 #include "misc_utils.h"
-#include "config_rw.h"
+#include "rw_config.h"
 
 #include "config_window_handler.h"
 

@@ -34,7 +34,6 @@
 #include "misc_utils.h"
 #include "select_frame_handler.h"
 #include "main_window_handler.h"
-#include "version.h"
 
 #define NAME "CATraxx"
 #define MAX_CDDB_FILE_SIZE 15360

@@ -33,15 +33,13 @@
 
 #include "main.h"
 
-void ripperX_init (_main_data * main_data);
-
 /* Global variable */
 _config config;
 int where_now;
 
 
 void
-ripperX_init (_main_data * main_data)
+rippix_init (_main_data * main_data)
 {
   memset (main_data, 0, sizeof (_main_data));
   read_config ();
@@ -51,7 +49,7 @@ ripperX_init (_main_data * main_data)
 
 
 void
-ripperX_exit (GtkWidget * widget, gpointer callback_data)
+rippix_exit (GtkWidget * widget, gpointer callback_data)
 {
   if (where_now == STATUS_FRAME)
     {
@@ -91,7 +89,7 @@ main (int argc, char *argv[])
   textdomain (PACKAGE);
 #endif /*ENABLE_NLS */
 
-  ripperX_init (&main_data);
+  rippix_init (&main_data);
   gtk_main ();
   return 0;
 }

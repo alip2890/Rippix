@@ -1,0 +1,435 @@
+<!--
+    Copyright (C) 2012
+    Aljosha Papsch <papsch.al@googlemail.com>
+
+    This file is part of Rippix.
+
+    Rippix is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Rippix is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Rippix.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<gconfschemafile>
+<schemalist>
+
+<!--
+General options
+-->
+
+<schema>
+  <!-- General::WavRatio -->
+  <key>/schemas/apps/rippix/general/rip_ratio</key>
+  <applyto>/apps/rippix/general/rip_ratio</applyto>
+  <owner>rippix</owner>
+  <type>float</type>
+  <default>0.006</default>
+  <locale name="C">
+    <short>Add description</short>
+    <long>Add description</long>
+  </locale>
+</schema>
+
+<schema>
+  <!-- General::Mp3Ratio -->
+  <key>/schemas/apps/rippix/general/encode_ratio</key>
+  <applyto>/apps/rippix/general/encode_ratio</applyto>
+  <owner>rippix</owner>
+  <type>float</type>
+  <default>0.08</default>
+</schema>
+
+<schema>
+  <!-- General::ShellForExecution -->
+  <key>/schemas/apps/rippix/general/shell_for_execution</key>
+  <applyto>/apps/rippix/general/shell_for_execution</applyto>
+  <owner>rippix</owner>
+  <type>string</type>
+  <default>/bin/sh</default>
+</schema>
+
+<schema>
+  <!-- General::WavPath -->
+  <key>/schemas/apps/rippix/general/rip_path</key>
+  <applyto>/apps/rippix/general/rip_path</applyto>
+  <owner>rippix</owner>
+  <type>string</type>
+  <default>./</default>
+</schema>
+
+<schema>
+  <!-- General::Mp3Path -->
+  <key>/schemas/apps/rippix/general/encode_path</key>
+  <applyto>/apps/rippix/general/encode_path</applyto>
+  <owner>rippix</owner>
+  <type>string</type>
+  <default>./</default>
+</schema>
+
+<schema>
+  <!-- General::CDDBPath -->
+  <key>/schemas/apps/rippix/general/cddb_path</key>
+  <applyto>/apps/rippix/general/cddb_path</applyto>
+  <owner>rippix</owner>
+  <type>string</type>
+  <default>./.cddbslave</default>
+</schema>
+
+<schema>
+  <!-- General::WavFileNameFormat -->
+  <key>/schemas/apps/rippix/general/wav_filename_format</key>
+  <applyto>/apps/rippix/general/wav_filename_format</applyto>
+  <owner>rippix</owner>
+  <type>string</type>
+  <default>track%</default>
+</schema>
+
+<schema>
+  <!-- General::Mp3FileNameFormat -->
+  <key>/schemas/apps/rippix/general/encoded_filename_format</key>
+  <applyto>/apps/rippix/general/encoded_filename_format</applyto>
+  <owner>rippix</owner>
+  <type>string</type>
+  <default>track%</default>
+</schema>
+
+<schema>
+  <!-- General::PrependChar -->
+  <key>/schemas/apps/rippix/general/prepend_char</key>
+  <applyto>/apps/rippix/general/prepend_char</applyto>
+  <owner>rippix</owner>
+  <type>char</type>
+  <default>_</default>
+</schema>
+
+<schema>
+  <!-- General::MakeMp3FromExistingWav -->
+  <key>/schemas/apps/rippix/general/encode_from_existing_files</key>
+  <applyto>/apps/rippix/general/encode_from_existing_files</applyto>
+  <owner>rippix</owner>
+  <type>bool</type>
+  <default>0</default>
+</schema>
+
+<schema>
+  <!-- General::AskWhenFileExists -->
+  <key>/schemas/apps/rippix/general/ask_when_file_exists</key>
+  <applyto>/apps/rippix/general/ask_when_file_exists</applyto>
+  <owner>rippix</owner>
+  <type>bool</type>
+  <default>1</default>
+</schema>
+
+<schema>
+  <!-- General::AutoAppendFileExtension -->
+  <key>/schemas/apps/rippix/general/auto_append_file_extension</key>
+  <applyto>/apps/rippix/general/autoappend_file_extension</applyto>
+  <owner>rippix</owner>
+  <type>bool</type>
+  <default>1</default>
+</schema>
+
+<schema>
+  <!-- General::KeepWav -->
+  <key>/schemas/apps/rippix/general/keep_wav</key>
+  <applyto>/apps/rippix/general/keep_wav</applyto>
+  <owner>rippix</owner>
+  <type>bool</type>
+  <default>0</default>
+</schema>
+
+<!--
+Options for the ripper
+-->
+
+<schema>
+  <!-- Ripper::Ripper -->
+  <key>/schemas/apps/rippix/ripper/ripper</key>
+  <applyto>/apps/rippix/ripper/ripper</applyto>
+  <owner>rippix</owner>
+  <type>string</type>
+  <default>cdparanoia                </default>
+</schema>
+
+<schema>
+  <!-- Ripper::Plugin -->
+  <key>/schemas/apps/rippix/ripper/plugin</key>
+  <applyto>/apps/rippix/ripper/plugin</applyto>
+  <owner>rippix</owner>
+  <type>string</type>
+  <default>ripperX_plugin-cdparanoia</default>
+</schema>
+
+<!--
+Options for the encoder
+-->
+
+<schema>
+  <!-- Encoder::Encoder -->
+  <key>/schemas/apps/rippix/encoder/encoder</key>
+  <applyto>/apps/rippix/encoder/encoder</applyto>
+  <owner>rippix</owner>
+  <type>string</type>
+  <default>lame</default>
+</schema>
+
+<schema>
+  <!-- Encoder::Type -->
+  <key>/schemas/apps/rippix/encoder/type</key>
+  <applyto>/apps/rippix/encoder/type</applyto>
+  <owner>rippix</owner>
+  <type>int</type>
+  <default>2</default>
+</schema>
+
+<schema>
+  <!-- Encoder::Bitrate -->
+  <key>/schemas/apps/rippix/encoder/bitrate</key>
+  <applyto>/apps/rippix/encoder/bitrate</applyto>
+  <owner>rippix</owner>
+  <type>int</type>
+  <default>128</default>
+</schema>
+
+<schema>
+  <!-- Encoder::VarBitrate -->
+  <key>/schemas/apps/rippix/encoder/var_bitrate</key>
+  <applyto>/apps/rippix/encoder/var_bitrate</applyto>
+  <owner>rippix</owner>
+  <type>bool</type>
+  <default>1</default>
+</schema>
+
+<schema>
+  <!-- Encoder::VBRQual -->
+  <key>/schemas/apps/rippix/encoder/vbr_quality</key>
+  <applyto>/apps/rippix/encoder/vbr_quality</applyto>
+  <owner>rippix</owner>
+  <type>int</type>
+  <default>4</default>
+</schema>
+
+<schema>
+  <!-- Encoder::Priority -->
+  <key>/schemas/apps/rippix/encoder/priority</key>
+  <applyto>/apps/rippix/encoder/priority</applyto>
+  <owner>rippix</owner>
+  <type>int</type>
+  <default>10</default>
+</schema>
+
+<schema>
+  <!-- Encoder::HighQual -->
+  <key>/schemas/apps/rippix/encoder/high_quality</key>
+  <applyto>/apps/rippix/encoder/high_quality</applyto>
+  <owner>rippix</owner>
+  <type>bool</type>
+  <default>1</default>
+</schema>
+
+<schema>
+  <!-- Encoder::useCRC -->
+  <key>/schemas/apps/rippix/encoder/use_crc</key>
+  <applyto>/apps/rippix/encoder/use_crc</applyto>
+  <owner>rippix</owner>
+  <type>bool</type>
+  <default>0</default>
+</schema>
+
+<schema>
+  <!-- Encoder::extraOptions -->
+  <key>/schemas/apps/rippix/encoder/extra_options</key>
+  <applyto>/apps/rippix/encoder/extra_options</applyto>
+  <owner>rippix</owner>
+  <type>string</type>
+  <default></default>
+</schema>
+
+<schema>
+  <!-- Encoder::fullComand -->
+  <key>/schemas/apps/rippix/encoder/full_command</key>
+  <applyto>/apps/rippix/encoder/full_command</applyto>
+  <owner>rippix</owner>
+  <type>string</type>
+  <default>lame -b 128</default>
+</schema>
+
+<schema>
+  <!-- Encoder::Plugin -->
+  <key>/schemas/apps/rippix/encoder/plugin</key>
+  <applyto>/apps/rippix/encoder/plugin</applyto>
+  <owner>rippix</owner>
+  <type>string</type>
+  <default>ripperX_plugin-lame</default>
+</schema>
+
+<!--
+Options for CD player
+-->
+
+<schema>
+  <!-- CdPlayer::Play_command -->
+  <key>/schemas/apps/rippix/cdplayer/play_command</key>
+  <applyto>/apps/rippix/cdplayer/play_command</applyto>
+  <owner>rippix</owner>
+  <type>string</type>
+  <default>cdplay %</default>
+</schema>
+
+<schema>
+  <!-- CdPlayer::Stop_command -->
+  <key>/schemas/apps/rippix/cdplayer/stop_command</key>
+  <applyto>/apps/rippix/cdplayer/stop_command</applyto>
+  <owner>rippix</owner>
+  <type>string</type>
+  <default>cdstop</default>
+</schema>
+
+<!--
+Options for WAV player
+-->
+
+<schema>
+  <!-- WavPlayer::Command -->
+  <key>/schemas/apps/rippix/wavplayer/command</key>
+  <applyto>/apps/rippix/wavplayer/command</applyto>
+  <owner>rippix</owner>
+  <type>string</type>
+  <default>play %</default>
+</schema>
+
+<!--
+Options for MP3 player
+-->
+
+<schema>
+  <!-- Mp3Player::Command -->
+  <key>/schemas/apps/rippix/mp3player/command</key>
+  <applyto>/apps/rippix/mp3player/command</applyto>
+  <owner>rippix</owner>
+  <type>string</type>
+  <default>mpg123 %</default>
+</schema>
+
+<!--
+Options for CDDB
+-->
+
+<schema>
+  <!-- CDDBConfig::Server -->
+  <key>/schemas/apps/rippix/cddb/server</key>
+  <applyto>/apps/rippix/cddb/server</applyto>
+  <owner>rippix</owner>
+  <type>string</type>
+  <default>freedb.freedb.org/~cddb/cddb.cgi</default>
+</schema>
+
+<schema>
+  <!-- CDDBConfig::Port -->
+  <key>/schemas/apps/rippix/cddb/port</key>
+  <applyto>/apps/rippix/cddb/port</applyto>
+  <owner>rippix</owner>
+  <type>int</type>
+  <default>80</default>
+</schema>
+
+<schema>
+  <!-- CDDBConfig::UseHttp -->
+  <key>/schemas/apps/rippix/cddb/use_http</key>
+  <applyto>/apps/rippix/cddb/use_http</applyto>
+  <owner>rippix</owner>
+  <type>bool</type>
+  <default>1</default>
+</schema>
+
+<schema>
+  <!-- CDDBConfig::ProxyServer -->
+  <key>/schemas/apps/rippix/cddb/proxy_server</key>
+  <applyto>/apps/rippix/cddb/proxy_server</applyto>
+  <owner>rippix</owner>
+  <type>string</type>
+  <default></default>
+</schema>
+
+<schema>
+  <!-- CDDBConfig::ProxyPort -->
+  <key>/schemas/apps/rippix/cddb/proxy_port</key>
+  <applyto>/apps/rippix/cddb/proxy_port</applyto>
+  <owner>rippix</owner>
+  <type>int</type>
+  <default>8080</default>
+</schema>
+
+<schema>
+  <!-- CDDBConfig::ConvertSpaces -->
+  <key>/schemas/apps/rippix/cddb/convert_spaces</key>
+  <applyto>/apps/rippix/cddb/convert_spaces</applyto>
+  <owner>rippix</owner>
+  <type>bool</type>
+  <default>0</default>
+</schema>
+
+<schema>
+  <!-- CDDBConfig::MakeDirectories -->
+  <key>/schemas/apps/rippix/cddb/make_directories</key>
+  <applyto>/apps/rippix/cddb/make_directories</applyto>
+  <owner>rippix</owner>
+  <type>bool</type>
+  <default>1</default>
+</schema>
+
+<schema>
+  <!-- CDDBConfig::CreateID3 -->
+  <key>/schemas/apps/rippix/cddb/create_id3</key>
+  <applyto>/apps/rippix/cddb/create_id3</applyto>
+  <owner>rippix</owner>
+  <type>bool</type>
+  <default>1</default>
+</schema>
+
+<schema>
+  <!-- CDDBConfig::CreatePlaylist -->
+  <key>/schemas/apps/rippix/cddb/create_playlist</key>
+  <applyto>/apps/rippix/cddb/create_playlist</applyto>
+  <owner>rippix</owner>
+  <type>bool</type>
+  <default>1</default>
+</schema>
+
+<schema>
+  <!-- CDDBConfig::AutoLookup -->
+  <key>/schemas/apps/rippix/cddb/autolookup</key>
+  <applyto>/apps/rippix/cddb/autolookup</applyto>
+  <owner>rippix</owner>
+  <type>bool</type>
+  <default>0</default>
+</schema>
+
+<schema>
+  <!-- CDDBConfig::FormatString -->
+  <key>/schemas/apps/rippix/cddb/format_string</key>
+  <applyto>/apps/rippix/cddb/format_string</applyto>
+  <owner>rippix</owner>
+  <type>string</type>
+  <default>%a - %s</default>
+</schema>
+
+<schema>
+  <!-- CDDBConfig::DirFormatString -->
+  <key>/schemas/apps/rippix/cddb/dir_format_string</key>
+  <applyto>/apps/rippix/cddb/dir_format_string</applyto>
+  <owner>rippix</owner>
+  <type>string</type>
+  <default>%a - %v</default>
+</schema>
+
+</schemalist>
+</gconfschemafile>

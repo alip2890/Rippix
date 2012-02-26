@@ -26,7 +26,7 @@
 #include <stdio.h>
 
 #include <glib.h>
-#include <glib/gi18n.h>
+/*include <glib/gi18n.h>*/
 #include "interface_common.h"
 #include "main.h"
 #include "config_window_handler.h"
@@ -37,16 +37,10 @@
 #include "status_frame_handler.h"
 #include "cddb.h"
 #include "misc_utils.h"
-#include "version.h"
 
 #include "main_window_handler.h"
 
-void mw_config_button_clicked (GtkWidget * widget, gpointer callback_data);
-void mw_stop_button_clicked (GtkWidget * widget, gpointer callback_data);
-void mw_go_button_clicked (GtkWidget * widget, gpointer callback_data);
-void mw_pause_button_clicked (GtkWidget * widget, gpointer callback_data);
-void mw_exit_button_clicked (GtkWidget * widget, gpointer callback_data);
-static int check_dirs ();
+
 
 
 void
@@ -122,7 +116,7 @@ mw_exit_button_clicked (GtkWidget * widget, gpointer callback_data)
 
   mode = *(int *) callback_data;
 
-  ripperX_exit (NULL, NULL);
+  rippix_exit (NULL, NULL);
   return;
 }
 
@@ -191,9 +185,9 @@ main_window_handler (int ops, char *statusbar_msg, _main_data * main_data)
 	gtk_window_set_title(GTK_WINDOW(main_window), PACKAGE_NAME);
 	gtk_window_set_default_size(GTK_WINDOW(main_window), 600, 400);
 	g_signal_connect(G_OBJECT(main_window), "destroy",
-			 G_CALLBACK(ripperX_exit), NULL);
+			 G_CALLBACK(rippix_exit), NULL);
 	g_signal_connect(G_OBJECT(main_window), "delete_event",
-			 G_CALLBACK(ripperX_exit), NULL);
+			 G_CALLBACK(rippix_exit), NULL);
 	sprintf(welcome_msg_buf, PACKAGE_STRING);
 	gtk_statusbar_push(GTK_STATUSBAR(statusbar), 1, welcome_msg_buf);
 

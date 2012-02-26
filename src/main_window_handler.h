@@ -39,10 +39,32 @@
  * MW_MODE_SELECT, MW_MODE_STATUS, MW_MODE_CONFIG, MW_UPDATE_STATUSBAR *
  *
  * main_data is used to install button callbacks */
-GtkWidget *main_window_handler( int ops, char *status_bar_msg,
+GtkWidget *
+main_window_handler( int ops, char *status_bar_msg,
                                 _main_data *main_data );
 
-void mw_scan_button_clicked( GtkWidget *widget, gpointer callback_data );
-void mw_cddb_button_clicked( GtkWidget *widget, gpointer callback_data );
+static int check_dirs ();
+
+/* Callbacks declarations */
+void
+mw_scan_button_clicked( GtkWidget *widget, gpointer callback_data );
+
+void
+mw_cddb_button_clicked( GtkWidget *widget, gpointer callback_data );
+
+void
+mw_config_button_clicked (GtkWidget * widget, gpointer callback_data);
+
+void
+mw_stop_button_clicked (GtkWidget * widget, gpointer callback_data);
+
+void
+mw_go_button_clicked (GtkWidget * widget, gpointer callback_data);
+
+void
+mw_pause_button_clicked (GtkWidget * widget, gpointer callback_data);
+
+void
+mw_exit_button_clicked (GtkWidget * widget, gpointer callback_data);
 
 #endif

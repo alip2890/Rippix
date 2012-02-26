@@ -26,6 +26,8 @@
 #include <locale.h>
 #include <string.h>
 
-void ripperX_exit( GtkWidget *widget, gpointer callback_data );
+void rippix_init (_main_data * main_data);
+
+void rippix_exit( GtkWidget *widget, gpointer callback_data );
 
 #endif
