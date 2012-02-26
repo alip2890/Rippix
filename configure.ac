@@ -54,6 +54,11 @@ if test x$PKG_CONFIG = xno ; then
   AC_MSG_ERROR([*** pkg-config not found. See http://www.freedesktop.org/software/pkgconfig/])
 fi
 
+AC_PATH_PROG(GCONFTOOL, gconftool-2, no)
+if test x$GCONFTOOL = xno ; then
+   AC_MSG_ERROR([*** gconftool-2 not found])
+fi
+
 #
 # libtool versioning
 #
@@ -179,6 +184,7 @@ AC_ARG_ENABLE(deprecated, [  --disable-deprecated  Disable deprecated GTK functi
 
 AC_OUTPUT([
 Makefile
+share/Makefile
 po/Makefile.in
 src/version.h
 src/Makefile

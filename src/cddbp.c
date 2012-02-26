@@ -2,6 +2,7 @@
    Tony Mancill <tmancill@users.sourceforge.net>
    Dave Cinege <dcinege@psychosis.com>
    jos.dehaes@bigfoot.com
+   Aljosha Papsch <papsch.al@googlemail.com>
 
    This file is part of Rippix.
 
@@ -19,15 +20,16 @@
    along with Rippix.  If not, see <http://www.gnu.org/licenses/>. */
 
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif
 
+#include <locale.h>
 #include <glib.h>
-#include <glib/gi18n.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
+#include "gettext.h"
 #include "cddbp.h"
 #include "main_window_handler.h"
 
@@ -123,7 +125,8 @@ cddbp_query (FILE * socket, const char *disk_id, int tracknum,
   printf ("=> %s\n", buffer);
 #endif
 
-  fprintf (socket, buffer);
+  /* FIXME: add a newline or not */
+  fprintf (socket, "%s", buffer);
   free (buffer);
 
   tmp = buffer = get_string_piece (socket, '\n');

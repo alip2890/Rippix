@@ -2,7 +2,13 @@
 
 	* src/rw_config.h: Added macros to ease access to GConf keys
 	* share/rippix.schemas: Created schemas file for GConf keys
-	* src/cddb.c, ripper_encoder_manipulation.c, players_manipulation.c: Converted from usage of config structure to config_read function.
+	* src/cddb.c, ripper_encoder_manipulation.c, players_manipulation.c, job_control.c, misc_utils.c: Converted from usage of config structure to config_read function.
+	* Makefile.am: Added share directory to SUBDIRS
+	* share/Makefile.am: Created Makefile.am for share directory
+	* configure.ac: Added check for gconftool-2 program. Added share/Makefile to AC_OUTPUT
+	* several: Replaced #include "config.h" with #include <config.h>. Removed inclusion of gi18n.h
+	* src/cddbp.c (cddb_query): added format string to fprintf call
+	* src/windowbuilder.c: Included <error.h>
 
 2012-02-25  Aljosha Papsch  <papsch.al@googlemail.com>
 

@@ -28,11 +28,10 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif
 
 #include <glib.h>
-#include <glib/gi18n.h>
 #include <stdio.h>
 #include <errno.h>
 #include <string.h>

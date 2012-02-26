@@ -20,11 +20,10 @@
    along with Rippix.  If not, see <http://www.gnu.org/licenses/>. */
 
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif
 
 #include <glib.h>
-#include <glib/gi18n.h>
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
@@ -68,7 +67,7 @@ cw_g_path_clicked (GtkWidget * widget, gpointer callback_data)
   /* FIXME: config_window_handler.c warning: passing argument 2 of 'dir_window_handler' discards qualifiers from pointer target type */
   if ((temp =
        dir_window_handler (WIDGET_CREATE,
-			   gtk_entry_get_text (GTK_ENTRY (entry)))) != NULL)
+			   (char *) gtk_entry_get_text (GTK_ENTRY (entry)))) != NULL)
     gtk_entry_set_text (GTK_ENTRY (entry), temp);
   gtk_widget_set_sensitive (widget, TRUE);
 }

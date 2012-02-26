@@ -1,5 +1,4 @@
-# Copyright (C) 2011,2012 Aljosha Papsch <papsch.al@googlemail.com>
-# and ripperX developers (http://sourceforge.net/projects/ripperx)
+# Copyright (C) 2012 Aljosha Papsch <papsch.al@googlemail.com>
 #
 # This file is part of Rippix.
 #
@@ -16,22 +15,30 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see `http://www.gnu.org/licenses/'.
 
-AUTOMAKE_OPTIONS = dist-bzip2
+rippix_sharedir = $(datadir)/rippix
 
-SUBDIRS = share po src config plugins
+#
+# UI files
+#
+uidir = $(rippix_sharedir)/ui
+ui_DATA = configdialog.ui mainwindow.ui selectframe.ui
 
-man_MANS = \
-     ripperX.1
+#
+# GConf schema file
+#
+schemasdir = $(sysconfdir)/gconf/schemas
+schemas_DATA = rippix.schemas
 
-EXTRA_DIST = \
-	BUGS \
-	README.plugin \
-	README.plugin_spec_v0.1 \
-	README.plugin_tester \
-	autogen.sh \
-	ripperX.desktop \
-	ripperX.pc.in \
-	$(man_MANS)
+EXTRA_DIST = $(ui_DATA) $(schemas_DATA)
 
-pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA = ripperX.pc
+install-data-hook:
+	-GCONF_CONFIG_SOURCE=$(GCONF_CONFIG_SOURCE) \
+	gconftool-2 --makefile-install-rule \
+	$(schemasdir)/rippix.schemas
+
+uninstall-local:
+	-GCONF_CONFIG_SOURCE=$(GCONF_CONFIG_SOURCE) \
+	gconftool-2 --makefile-uninstall-rule \
+	$(schemasdir)/rippix.schemas
+	-rm -r $(uidir)
+	-rm -r $(rippix_sharedir)

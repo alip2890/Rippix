@@ -20,11 +20,10 @@
    along with Rippix.  If not, see <http://www.gnu.org/licenses/>. */
 
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif
 
 #include <glib.h>
-#include <glib/gi18n.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -228,7 +227,7 @@ scan_cd (_main_data * main_data)
     }
 
   /* Create argvs */
-  sprintf (tmp, "%s -Q", (gchar *) config_read (CONF_RPR_RIPPER));
+  sprintf (tmp, "%s -Q", (char *) config_read (CONF_RPR_RIPPER));
   if ((argv = create_argv_for_execution_using_shell (tmp)) == NULL)
     return -1;
 
@@ -282,8 +281,8 @@ start_ripping_encoding (int type, int begin, int length, int track,
   char debian_path[MAX_COMMAND_LENGTH];
   char *path = getenv ("PATH");
   char *found = strstr (path, "/usr/lib/ripperx:");
-  gchar *encoder = (gchar *) config_read (CONF_ENCOD_ENCODER);
-  gchar *encoder_cmd = (gchar *) config_read (CONF_ENCOD_FULLCMD);
+  char *encoder = (char *) config_read (CONF_ENCOD_ENCODER);
+  char *encoder_cmd = (char *) config_read (CONF_ENCOD_FULLCMD);
   gint priority = (gint) config_read (CONF_ENCOD_PRIORITY);
 
 
@@ -299,7 +298,7 @@ start_ripping_encoding (int type, int begin, int length, int track,
   if (type == WAV)
     {
       snprintf (command, sizeof (command), "%s %d '%s'",
-		(gchar *) config_read (CONF_RPR_RIPPER),
+		(char *) config_read (CONF_RPR_RIPPER),
 		track + 1, wav_file_name);
     }
   else
@@ -323,9 +322,9 @@ start_ripping_encoding (int type, int begin, int length, int track,
   // parse/expand plugin command
   // plugin_executable beginning_sector length_in_sector
   if (type == WAV)
-    tmp = (gchar *) config_read (CONF_RPR_PLUGIN);
+    tmp = (char *) config_read (CONF_RPR_PLUGIN);
   else
-    tmp = (gchar *) config_read (CONF_ENCOD_PLUGIN);
+    tmp = (char *) config_read (CONF_ENCOD_PLUGIN);
 
   snprintf (plugin, sizeof (plugin), "%s %d %d", tmp, begin, length);
 

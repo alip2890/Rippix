@@ -20,11 +20,10 @@
    along with Rippix.  If not, see <http://www.gnu.org/licenses/>. */
 
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif
 
 #include <glib.h>
-#include <glib/gi18n.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
@@ -44,6 +43,8 @@
 #include <glib.h>
 
 #include "main_window_handler.h"
+#include "rw_config.h"
+
 #include "misc_utils.h"
 
 
@@ -117,7 +118,7 @@ create_argv_for_execution_using_shell (char *command)
   char **argv;
   GtkWidget *main_window = main_window_handler(MW_REQUEST_MW, NULL, NULL);
 
-  shell = config.shell_for_execution;
+  shell = (char *) config_read (CONF_GNRL_SHELL_FOR_EXEC);
 
   if ((argv = (char **) malloc (sizeof (char *) * 4)) == NULL)
     {
@@ -396,7 +397,7 @@ char *
 get_default_track_title (int track)
 {
   static char name_buf[MAX_FILE_NAME_LENGTH];
-  char *name_format = config.mp3_file_name_format;
+  char *name_format = (char *) config_read (CONF_GNRL_ENC_FILEN_FORMAT);
   char track_no_buf[5];
   int read_offset, write_offset;
 
@@ -1140,18 +1141,25 @@ create_filenames_from_format (_main_data * main_data)
   int rc2;
   static unsigned char *df;
   GtkWidget *main_window = main_window_handler(MW_REQUEST_MW, NULL, NULL);
+  char *rip_path = (char *) config_read (CONF_GNRL_RIP_PATH);
+  char *enc_path = (char *) config_read (CONF_GNRL_ENC_PATH);
 
-  i = strlen (config.wav_path) - 1;
-  if (i >= 0 && config.wav_path[i] == '/')
-    config.wav_path[i] = 0;
-  i = strlen (config.mp3_path) - 1;
-  if (i >= 0 && config.mp3_path[i] == '/')
-    config.mp3_path[i] = 0;
-  if (config.cddb_config.make_directories
-      && config.cddb_config.dir_format_string[0])
+  i = strlen (rip_path) - 1;
+  if (i >= 0 && rip_path[i] == '/')
+    rip_path[i] = 0;
+  i = strlen (enc_path) - 1;
+  if (i >= 0 && enc_path[i] == '/')
+    enc_path[i] = 0;
+
+  char *dirformat = (char *) config_read (CONF_CDDB_DIRFORMATSTR);
+  char *rip_path = (char *) config_read (CONF_GNRL_RIP_PATH);
+  char *enc_path = (char *) config_read (CONF_GNRL_ENC_PATH);
+
+  if (((char *) config_read (CONF_CDDB_MKDIRS))
+      && dirformat[0])
     {
       rc2 = parse_rx_format_string (&df,
-				    config.cddb_config.dir_format_string, -1,
+				    dirformat, -1,
 				    main_data->disc_artist,
 				    main_data->disc_title,
 				    main_data->disc_year, "");
@@ -1163,42 +1171,43 @@ create_filenames_from_format (_main_data * main_data)
 	}
 
       remove_non_unix_chars (df);
-      if (config.cddb_config.convert_spaces == TRUE)
+      if ((int) config_read (CONF_CDDB_CONVSPC))
 	{
 	  convert_spaces (df, '_');
 	}
 
       if (strlen (df) > 0)
 	{
-	  mk_strcat (&wd, config.wav_path, "/", df, "/", NULL);
-	  mk_strcat (&ed, config.mp3_path, "/", df, "/", NULL);
+	  mk_strcat (&wd, rip_path, "/", df, "/", NULL);
+	  mk_strcat (&ed, enc_path, "/", df, "/", NULL);
 
 	  create_dir (wd);
 	  create_dir (ed);
 	}
       else
 	{
-	  mk_strcat (&wd, config.wav_path, "/", NULL);
-	  mk_strcat (&ed, config.mp3_path, "/", NULL);
+	  mk_strcat (&wd, rip_path, "/", NULL);
+	  mk_strcat (&ed, enc_path, "/", NULL);
 	}
 
     }
   else
     {
-      mk_strcat (&wd, config.wav_path, "/", NULL);
-      mk_strcat (&ed, config.mp3_path, "/", NULL);
+      mk_strcat (&wd, rip_path, "/", NULL);
+      mk_strcat (&ed, enc_path, "/", NULL);
     }
 
-  if (config.auto_append_extension == TRUE)
+  if ((int) config_read (CONF_GNRL_APP_FILE_EXT))
     {
       wfext = ".wav";
-      if (config.encoder.type == OGG)
+      char *encoder_type = (char *) config_read (CONF_ENCOD_TYPE);
+      if (encoder_type == OGG)
 	ecfext = ".ogg";
-      else if (config.encoder.type == FLAC)
+      else if (encoder_type == FLAC)
 	ecfext = ".flac";
-      else if (config.encoder.type == MP2)
+      else if (encoder_type == MP2)
 	ecfext = ".mp2";
-      else if (config.encoder.type == MUSE)
+      else if (encoder_type == MUSE)
 	ecfext = ".mpc";
       else
 	ecfext = ".mp3";
@@ -1218,9 +1227,9 @@ create_file_names_for_track (_main_data * main_data, int track, char **wfp,
   GtkWidget *main_window = main_window_handler(MW_REQUEST_MW, NULL, NULL);
 
   rc = parse_rx_format_string (&buffer,
-			       config.cddb_config.format_string, track,
-			       main_data->disc_artist, main_data->disc_title,
-			       main_data->disc_year,
+			       ((char *) config_read (CONF_CDDB_FORMATSTR)),
+			       track, main_data->disc_artist,
+			       main_data->disc_title, main_data->disc_year,
 			       main_data->track[track].title);
   if (rc < 0)
     {
@@ -1237,7 +1246,7 @@ create_file_names_for_track (_main_data * main_data, int track, char **wfp,
 
   remove_non_unix_chars (conv_str);
   convert_slashes (conv_str, '-');
-  if (config.cddb_config.convert_spaces == TRUE)
+  if ((int) config_read (CONF_GNRL_CONVSPC))
     {
       convert_spaces (conv_str, '_');
     }
@@ -1459,7 +1468,7 @@ vorbistag (char *ogg_file,
 {
   char cmd[MAX_COMMAND_LENGTH];
   char temp[MAX_TITLE_LENGTH];
-  gchar *tagfile;
+  char *tagfile;
   FILE *f;
   char *conv_artist = NULL;
   char *conv_album = NULL;
@@ -1507,7 +1516,7 @@ flactag (char *flac_file,
 {
   char cmd[MAX_COMMAND_LENGTH];
   char temp[MAX_TITLE_LENGTH];
-  gchar *tagfile;
+  char *tagfile;
   FILE *f;
 
   tagfile = g_strdup_printf ("%s.tags", flac_file);

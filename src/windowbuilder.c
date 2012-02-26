@@ -21,7 +21,7 @@
 #include <locale.h>
 #include <glib.h>
 #include <gtk/gtk.h>
-#include <glib/gprintf.h>
+#include <error.h>
 
 #include "gettext.h"
 #include "windowbuilder.h"

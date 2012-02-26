@@ -20,11 +20,10 @@
    along with Rippix.  If not, see <http://www.gnu.org/licenses/>. */
 
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif
 
 #include <glib.h>
-#include <glib/gi18n.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/types.h>
@@ -52,15 +51,15 @@ players_create_argv (int ops, int cd_wav_mp3, char *playit)
     {
     case CD:
       if (ops == PLAY)
-	command = (gchar *) config_read (CONF_CDPL_PLAYCMD);
+	command = (char *) config_read (CONF_CDPL_PLAYCMD);
       else
-	command = (gchar *) config_read (CONF_CDPL_STOPCMD);
+	command = (char *) config_read (CONF_CDPL_STOPCMD);
       break;
     case WAV:
-      command = (gchar *) config_read (CONF_WAVPL_CMD);
+      command = (char *) config_read (CONF_WAVPL_CMD);
       break;
     case MP3:
-      command = (gchar *) config_read (CONF_MP3PL_CMD);
+      command = (char *) config_read (CONF_MP3PL_CMD);
       break;
     }
 

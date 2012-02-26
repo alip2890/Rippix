@@ -32,7 +32,7 @@
 static GConfClient *conf_client;
 
 gpointer
-config_read (const gchar *key)
+config_read (const char *key)
 {
   /* Create the connection to GConf database if it doesn't exist yet. */
   config_open_close (CONFIG_OP_OPEN);
@@ -88,7 +88,7 @@ config_read (const gchar *key)
 }
 
 int
-config_write (const GConfValueType data_type, const gchar *key,
+config_write (const GConfValueType data_type, const char *key,
 	      const gpointer data_value)
 {
   GConfValue *temp_value;
@@ -99,7 +99,7 @@ config_write (const GConfValueType data_type, const gchar *key,
   switch (data_type)
     {
     case GCONF_VALUE_STRING:
-	gconf_value_set_string (temp_value, (gchar *) data_value);
+	gconf_value_set_string (temp_value, (char *) data_value);
 	break;
     case GCONF_VALUE_INT:
 	gconf_value_set_int (temp_value, (gint) data_value);

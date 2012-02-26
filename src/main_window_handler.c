@@ -20,13 +20,12 @@
    along with Rippix.  If not, see <http://www.gnu.org/licenses/>. */
 
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif
 
 #include <stdio.h>
 
 #include <glib.h>
-/*include <glib/gi18n.h>*/
 #include "interface_common.h"
 #include "main.h"
 #include "config_window_handler.h"
@@ -227,7 +226,7 @@ main_window_handler (int ops, char *statusbar_msg, _main_data * main_data)
 	gtk_container_add(GTK_CONTAINER(main_window), vbox);
 	gtk_widget_show_all(main_window);
 
-	if (((gbool) config_read(CONF_CDDB_AUTOLOOKUP)) && !count)
+	if (((int) config_read(CONF_CDDB_AUTOLOOKUP)) && !count)
 	  {
 	    cddb_main(main_data);
 	  }
@@ -328,8 +327,8 @@ check_dirs ()
   long wav_free, mp3_free;
   int rc;
   GtkWidget *main_window = main_window_handler(MW_REQUEST_MW, NULL, NULL);
-  gchar *rip_path = (gchar *) config_read (CONF_GNRL_RIP_PATH);
-  gchar *enc_path = (gchar *) config_read (CONF_GNRL_ENC_PATH);
+  char *rip_path = (char *) config_read (CONF_GNRL_RIP_PATH);
+  char *enc_path = (char *) config_read (CONF_GNRL_ENC_PATH);
 
   rc = check_dir (rip_path);
   switch (rc)

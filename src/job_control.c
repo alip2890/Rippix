@@ -28,7 +28,7 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif
 
 #include <stdlib.h>
@@ -37,7 +37,6 @@
 #include <stdio.h>		/* for bezo debug */
 
 #include <glib.h>
-#include <glib/gi18n.h>
 #include <errno.h>		/* for errno */
 #include <sys/stat.h>		/* defines read and write flags */
 #include <time.h>
@@ -60,6 +59,7 @@
 #include "main_window_handler.h"
 #include "select_frame_handler.h"
 #include "status_frame_handler.h"
+#include "rw_config.h"
 
 #include "job_control.h"
 
@@ -151,8 +151,8 @@ calc_stat (_main_data * main_data, _stat * stat,
       stat->ripping = FALSE;
       stat->encoding = FALSE;
 
-      wav_ratio = config.wav_ratio;
-      mp3_ratio = config.mp3_ratio;
+      wav_ratio = (float) config_read (CONF_GNRL_RIP_RATIO);
+      mp3_ratio = (float) config_read (CONF_GNRL_ENC_RATIO);
       total_wav_length_remain = 0;
       total_mp3_length_remain = 0;
       length_first_track = 0;
@@ -356,8 +356,10 @@ calc_stat (_main_data * main_data, _stat * stat,
     case CALC_STOP_SESSION:
       stat->tracks_remain = 0;
       stat->tracks_done = 0;
-      config.wav_ratio = wav_ratio;
-      config.mp3_ratio = mp3_ratio;
+      config_write (GCONF_VALUE_FLOAT, CONF_GNRL_RIP_RATIO,
+		    (gpointer) wav_ratio);
+      config_write (GCONF_VALUE_FLOAT, CONF_GNRL_ENC_RATIO,
+		    (gpointer) mp3_ratio);
       return;
     }
 }
@@ -383,9 +385,9 @@ lock_file (char *file_name, int is_temp)
   else
     {
       if (errno == EEXIST)
-	if (config.ask_when_file_exists == FALSE || is_temp == TRUE)
+	if (((int) config_read (CONF_GNRL_ASK_FILE_EXIST) || is_temp == TRUE)
 	  {
-	    if (config.make_mp3_from_existing_wav)
+	    if ((int) config_read (CONF_GNRL_ENC_FROM_EXIST))
 	      return 1;
 
 	    /* Prepend config.prepend_char until we succeed open() */
@@ -396,7 +398,7 @@ lock_file (char *file_name, int is_temp)
 	      {
 		temp = file_name_without_path (file_name);
 		strcpy (buf, temp);
-		temp[0] = config.prepend_char;
+		temp[0] = (gchar) config_read (CONF_GNRL_PREP_CHAR);
 		strcpy (temp + 1, buf);
 
 		/* now try again */
@@ -406,7 +408,7 @@ lock_file (char *file_name, int is_temp)
 	  }
 	else
 	  {
-	    if (config.make_mp3_from_existing_wav)
+	    if ((int) config_read (CONF_GNRL_ENC_FROM_EXIST))
 	      return 1;
 
 	    if (dialog_handler (WIDGET_CREATE, FALSE,
@@ -545,7 +547,7 @@ job_finisher (_main_data * main_data)
 	  mademp3s = TRUE;
 
 	  /* add ID3 tag if requested */
-	  if (config.cddb_config.create_id3 == TRUE)
+	  if ((int) config_read (CONF_CDDB_CREATID3))
 	    {
 	      if (!(artist = main_data->track[i].artist))
 		artist = main_data->disc_artist;
@@ -553,7 +555,8 @@ job_finisher (_main_data * main_data)
 	      // TODO:  fix this to use something like
 	      //              if (main_data->encoding_type == OGG) {
 
-	      if (!strcmp (config.encoder.encoder, "oggenc"))
+	      char *encoder = (char *) config_read (CONF_ENCOD_ENCODER);
+	      if (!strcmp (encoder, "oggenc"))
 		{
 		  /* set VORBIS tags using vorbistag - added DATE tag - R. Turnbull 1-2-2010 */
 		  vorbistag (enc_file,
@@ -564,7 +567,7 @@ job_finisher (_main_data * main_data)
 			     id3_find_cddb_category (main_data->
 						     disc_category), i + 1);
 		}
-	      else if (!strcmp (config.encoder.encoder, "flac"))
+	      else if (!strcmp (encoder, "flac"))
 		{
 		  /* set FLAC tags using metaflac R. Turnbull 1-2-2010 */
 		  flactag (enc_file,
@@ -575,7 +578,7 @@ job_finisher (_main_data * main_data)
 			   id3_find_cddb_category (main_data->disc_category),
 			   i + 1);
 		}
-	      else if (!strcmp (config.encoder.encoder, "mppenc"))
+	      else if (!strcmp (encoder, "mppenc"))
 		{
 		  /* do nothing for for musepack right now -
 		     originally supported id3 now wants apev2 tags */
@@ -606,7 +609,7 @@ job_finisher (_main_data * main_data)
 		   file_name_without_path (enc_file));
 
 	  // tm: basic playlist support - thanks to Mark Tyler
-	  if (config.cddb_config.create_playlist == TRUE)
+	  if ((int) config_read (CONF_CDDB_CREATPL))
 	    {
 	      if (fp_playlist == NULL)
 		{
@@ -625,7 +628,8 @@ job_finisher (_main_data * main_data)
     }				/* end loop over all tracks */
   free (s_track_num);
 
-  if ((config.cddb_config.create_playlist == TRUE) && (fp_playlist != NULL))
+  if (((int) config_read (CONF_CDDB_CREATPL) == TRUE)
+      && (fp_playlist != NULL))
     fclose (fp_playlist);
 
   /* Generate status message */
@@ -678,7 +682,7 @@ find_next_job (_main_data * main_data,
   /* for finding the next wav file, check to see if the file exists */
   if (cur_type == WAV && main_data->track[track].make_mp3
       && main_data->track[track].wav_exist == TRUE
-      && config.make_mp3_from_existing_wav == TRUE)
+      && ((int) config_read (CONFIG_GNRL_ENC_FROM_EXIST)) == TRUE)
     {
       if (find_next_job (main_data, track, WAV, &temp_next, &temp_type) >= 0)
 	{
@@ -1013,20 +1017,22 @@ job_controller (int ops, _main_data * main_data)
 
 		  main_data->track[mp3_cur_track].mp3_exist = TRUE;
 		  /* Delete WAV file if he/she doesn't want it */
-		  if (!config.keep_wav)
+		  if (!((int) config_read (CONF_GNRL_KEEP_WAV)))
 		    {
 		      create_file_names_for_track (main_data, mp3_cur_track,
 						   &wav_file_path,
 						   &enc_file_path);
 		      if (unlink (wav_file_path) < 0)
-			err_handler (GTK_WINDOW(main_window), FILE_DELETE_ERR, wav_file_path);
+			err_handler (GTK_WINDOW(main_window),
+				     FILE_DELETE_ERR, wav_file_path);
 		      /* Mark that it has been deleted */
 		      main_data->track[mp3_cur_track].wav_exist = FALSE;
 
 		      /* Delete WAV work directory if this was the last WAV file,
 		         and the mp3 work dir is different */
 		      if (stat.tracks_remain <= 1)
-			if (strcmp (config.wav_path, config.mp3_path) != 0)
+			if (strcmp (((char *) config_read (CONF_GNRL_RIP_PATH)),
+				    ((char *) config_read (CONF_GNRL_ENC_PATH))) != 0)
 			  rmdir (file_path_without_name (wav_file_path));
 		    }
 
