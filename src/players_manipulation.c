@@ -37,6 +37,7 @@
 
 #include "misc_utils.h"
 #include "main_window_handler.h"
+#include "rw_config.h"
 
 #include "players_manipulation.h"
 
@@ -51,15 +52,15 @@ players_create_argv (int ops, int cd_wav_mp3, char *playit)
     {
     case CD:
       if (ops == PLAY)
-	command = config.cd_player.play_command;
+	command = (gchar *) config_read (CONF_CDPL_PLAYCMD);
       else
-	command = config.cd_player.stop_command;
+	command = (gchar *) config_read (CONF_CDPL_STOPCMD);
       break;
     case WAV:
-      command = config.wav_player.command;
+      command = (gchar *) config_read (CONF_WAVPL_CMD);
       break;
     case MP3:
-      command = config.mp3_player.command;
+      command = (gchar *) config_read (CONF_MP3PL_CMD);
       break;
     }
 

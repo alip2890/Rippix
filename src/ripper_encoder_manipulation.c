@@ -39,10 +39,11 @@
 #include <sys/ioctl.h>
 #include <pty.h>
 
-#include "ripper_encoder_manipulation.h"
 #include "main_window_handler.h"
 #include "misc_utils.h"
+#include "rw_config.h"
 
+#include "ripper_encoder_manipulation.h"
 
 char **cdparanoia_create_argv (char *file_name, int track);
 /* If track is >= 0, it will return a pointer to a static pointer
@@ -227,7 +228,7 @@ scan_cd (_main_data * main_data)
     }
 
   /* Create argvs */
-  sprintf (tmp, "%s -Q", config.ripper.ripper);
+  sprintf (tmp, "%s -Q", (gchar *) config_read (CONF_RPR_RIPPER));
   if ((argv = create_argv_for_execution_using_shell (tmp)) == NULL)
     return -1;
 
@@ -281,6 +282,11 @@ start_ripping_encoding (int type, int begin, int length, int track,
   char debian_path[MAX_COMMAND_LENGTH];
   char *path = getenv ("PATH");
   char *found = strstr (path, "/usr/lib/ripperx:");
+  gchar *encoder = (gchar *) config_read (CONF_ENCOD_ENCODER);
+  gchar *encoder_cmd = (gchar *) config_read (CONF_ENCOD_FULLCMD);
+  gint priority = (gint) config_read (CONF_ENCOD_PRIORITY);
+
+
   if (found == NULL)		/* Only add the path if it isn't already present. */
     {
       strcpy (debian_path, "/usr/lib/ripperx:");
@@ -292,37 +298,34 @@ start_ripping_encoding (int type, int begin, int length, int track,
   // parse/expand program command
   if (type == WAV)
     {
-      snprintf (command, sizeof (command), "%s %d '%s'", config.ripper.ripper,
+      snprintf (command, sizeof (command), "%s %d '%s'",
+		(gchar *) config_read (CONF_RPR_RIPPER),
 		track + 1, wav_file_name);
     }
   else
     {
       // hack to support the interface for mp3enc
-      if (!strcmp (config.encoder.encoder, "mp3enc"))
+      if (!strcmp (encoder, "mp3enc"))
 	snprintf (command, sizeof (command),
 		  "nice -n %i %s -v -if '%s' -of '%s'",
-		  config.encoder.priority, config.encoder.full_command,
-		  wav_file_name, mp3_file_name);
-      else if (!strcmp (config.encoder.encoder, "flac"))
+		  priority, encoder_cmd, wav_file_name, mp3_file_name);
+      else if (!strcmp (encoder, "flac"))
 	snprintf (command, sizeof (command), "nice -n %i %s -o '%s' '%s'",
-		  config.encoder.priority, config.encoder.full_command,
-		  mp3_file_name, wav_file_name);
-      else if (!strcmp (config.encoder.encoder, "oggenc"))
+		  priority, encoder_cmd, mp3_file_name, wav_file_name);
+      else if (!strcmp (encoder, "oggenc"))
 	snprintf (command, sizeof (command), "nice -n %i %s -o '%s' '%s'",
-		  config.encoder.priority, config.encoder.full_command,
-		  mp3_file_name, wav_file_name);
+		  priority, encoder_cmd, mp3_file_name, wav_file_name);
       else
 	snprintf (command, sizeof (command), "nice -n %i %s '%s' '%s'",
-		  config.encoder.priority, config.encoder.full_command,
-		  wav_file_name, mp3_file_name);
+		  priority, encoder_cmd, wav_file_name, mp3_file_name);
     }
 
   // parse/expand plugin command
   // plugin_executable beginning_sector length_in_sector
   if (type == WAV)
-    tmp = config.ripper.plugin;
+    tmp = (gchar *) config_read (CONF_RPR_PLUGIN);
   else
-    tmp = config.encoder.plugin;
+    tmp = (gchar *) config_read (CONF_ENCOD_PLUGIN);
 
   snprintf (plugin, sizeof (plugin), "%s %d %d", tmp, begin, length);
 

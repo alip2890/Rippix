@@ -2,6 +2,7 @@
 
 	* src/rw_config.h: Added macros to ease access to GConf keys
 	* share/rippix.schemas: Created schemas file for GConf keys
+	* src/cddb.c, ripper_encoder_manipulation.c, players_manipulation.c: Converted from usage of config structure to config_read function.
 
 2012-02-25  Aljosha Papsch  <papsch.al@googlemail.com>
 

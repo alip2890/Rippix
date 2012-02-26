@@ -37,6 +37,7 @@
 #include "status_frame_handler.h"
 #include "cddb.h"
 #include "misc_utils.h"
+#include "rw_config.h"
 
 #include "main_window_handler.h"
 
@@ -226,7 +227,7 @@ main_window_handler (int ops, char *statusbar_msg, _main_data * main_data)
 	gtk_container_add(GTK_CONTAINER(main_window), vbox);
 	gtk_widget_show_all(main_window);
 
-	if (config.cddb_config.auto_lookup && !count)
+	if (((gbool) config_read(CONF_CDDB_AUTOLOOKUP)) && !count)
 	  {
 	    cddb_main(main_data);
 	  }
@@ -327,8 +328,10 @@ check_dirs ()
   long wav_free, mp3_free;
   int rc;
   GtkWidget *main_window = main_window_handler(MW_REQUEST_MW, NULL, NULL);
+  gchar *rip_path = (gchar *) config_read (CONF_GNRL_RIP_PATH);
+  gchar *enc_path = (gchar *) config_read (CONF_GNRL_ENC_PATH);
 
-  rc = check_dir (config.wav_path);
+  rc = check_dir (rip_path);
   switch (rc)
     {
     case MISC_DOES_NOT_EXISTS:
@@ -339,7 +342,7 @@ check_dirs ()
 	}
       else
 	{
-	  if (create_dir (config.wav_path) != 0)
+	  if (create_dir (rip_path) != 0)
 	    {
 	      err_handler (GTK_WINDOW(main_window), 29, NULL);
 	      return 0;
@@ -353,7 +356,7 @@ check_dirs ()
       break;
     }
 
-  rc = check_dir (config.mp3_path);
+  rc = check_dir (enc_path);
   switch (rc)
     {
     case MISC_DOES_NOT_EXISTS:
@@ -364,7 +367,7 @@ check_dirs ()
 	}
       else
 	{
-	  if (create_dir (config.mp3_path) != 0)
+	  if (create_dir (enc_path) != 0)
 	    {
 	      err_handler (GTK_WINDOW(main_window), 30, NULL);
 	      return 0;
@@ -378,8 +381,8 @@ check_dirs ()
       break;
     }
 
-  wav_free = check_free_space (config.wav_path);
-  mp3_free = check_free_space (config.mp3_path);
+  wav_free = check_free_space (rip_path);
+  mp3_free = check_free_space (enc_path);
 
   if (wav_free < 500 * 1024)
     {

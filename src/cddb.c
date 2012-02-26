@@ -34,6 +34,7 @@
 #include "misc_utils.h"
 #include "select_frame_handler.h"
 #include "main_window_handler.h"
+#include "rw_config.h"
 
 #define NAME "CATraxx"
 #define MAX_CDDB_FILE_SIZE 15360
@@ -48,10 +49,13 @@ enum lookup_order
 { NONE, LOCAL, REMOTE, LOCAL_REMOTE, REMOTE_LOCAL };
 
 
-int cddb_handle_data (const char *data, char **artist, char **dtitle,
+int
+cddb_handle_data (const char *data, char **artist, char **dtitle,
 		      char *titles[], int *totaltracks, char **year,
 		      char **dgenre);
-int do_cddb (char **result, char **disc_category, int tracknum, int duration,
+
+int
+do_cddb (char **result, char **disc_category, int tracknum, int duration,
 	     long int offset[], const char *server, int port, int proto);
 
 
@@ -192,7 +196,7 @@ cddb_handle_data (const char *data, char **artist, char **dtitle,
 	  convert_slashes (*artist, '_');	// dc: _ Artist, - others
 	  convert_slashes (*dtitle, '-');
 #ifdef CONVERT_SPACES_IN_ID3_DATA
-	  if (config.cddb_config.convert_spaces == TRUE)
+	  if (((gbool) config_read (CONF_CDDB_CONVSPC)) == TRUE)
 	    {
 	      convert_spaces (*artist, '_');
 	      convert_spaces (*dtitle, '_');
@@ -303,16 +307,23 @@ do_cddb (char **result, char **disc_category, int tracknum, int duration,
 #else
   else
     {
-      if (!strcmp (config.cddb_config.proxy_server, ""))
-	status =
-	  http_query (wwwserver, port, uri, cd_id, tracknum, offset, duration,
-		      &matches, &category, &title, &alt_id, NAME, VERSION);
+      if (!strcmp (((gchar *) config_read (CONF_CDDB_PROXYSRV)), ""))
+	{
+	  status =
+	    http_query (wwwserver, port, uri, cd_id, tracknum, offset,
+			duration, &matches, &category, &title,
+			&alt_id, NAME, VERSION);
+	}
       else
-	status =
-	  http_query_proxy (wwwserver, port, config.cddb_config.proxy_server,
-			    config.cddb_config.proxy_port, uri, cd_id,
-			    tracknum, offset, duration, &matches, &category,
-			    &title, &alt_id, NAME, VERSION);
+	{
+	  gchar *proxy_server = (gchar *) config_read (CONF_CDDB_PROXYSRV);
+	  gint proxy_port = (gint) config_read (CONF_CDDB_PROXYPRT);
+	  status =
+	    http_query_proxy (wwwserver, port,
+			      proxy_server, proxy_port, uri, cd_id,
+			      tracknum, offset, duration, &matches,
+			      &category, &title, &alt_id, NAME, VERSION);
+	}
 
     }
 
@@ -356,15 +367,19 @@ do_cddb (char **result, char **disc_category, int tracknum, int duration,
   /* now finally grab the data for the disc id and category */
   if (proto == CDDBP)
     status = cddbp_read (sock, final_cat, final_id, result);
-  else if (!strcmp (config.cddb_config.proxy_server, ""))
+  else if (!strcmp (((gchar *) config_read (CONF_CDDB_PROXYSRV)), ""))
     status =
       http_read (wwwserver, port, uri, final_cat, final_id, result, NAME,
 		 VERSION);
   else
-    status =
-      http_read_proxy (wwwserver, port, config.cddb_config.proxy_server,
-		       config.cddb_config.proxy_port, uri, final_cat,
-		       final_id, result, NAME, VERSION);
+    {
+      gchar *proxy_server = (gchar *) config_read (CONF_CDDB_PROXYSRV);
+      gint proxy_port = (gint) config_read (CONF_CDDB_PROXYPRT);
+      status =
+	http_read_proxy (wwwserver, port, proxy_server,
+			 proxy_port, uri, final_cat,
+			 final_id, result, NAME, VERSION);
+    }
 
   switch (status)
     {
@@ -412,7 +427,8 @@ read_local_file (char **result, int tracknum, int duration, long int offset[])
   printf ("cddb_disk_id returned '%s'\n", cd_id);
 #endif
   /* first, check the directory pointed to by the config file */
-  strcpy (file_check, config.cddb_path);	/* start with the base path */
+  strcpy (file_check, ((gchar *) config_read (CONF_GNRL_CDDB_PATH)));
+  /* start with the base path */
   strcat (file_check, "/");
   strcat (file_check, cd_id);	/* add the filename */
   if ((datafile = fopen (file_check, "r")) == NULL)
@@ -423,8 +439,8 @@ read_local_file (char **result, int tracknum, int duration, long int offset[])
        */
       for (i = 0; i < ID3_NR_OF_V1_GENRES; i++)
 	{
-
-	  strcpy (file_check, config.cddb_path);	/*   start with the base path  */
+	  strcpy (file_check, ((gchar *) config_read (CONF_GNRL_CDDB_PATH)));
+	  /*   start with the base path  */
 	  strcat (file_check, "/");	/*   add the seperator  */
 	  strcat (file_check, ID3_v1_genre_description[i]);	/*   add the catagory  */
 	  strcat (file_check, "/");	/*   add the seperator  */
@@ -621,10 +637,14 @@ cddb_main (_main_data * main_data)
 
   /* connect to the cddb server and grab the results */
   if (err != REMOTE_OK)
-    err =
-      do_cddb (&result, &category, tracknum, duration, offset,
-	       config.cddb_config.server, config.cddb_config.port,
-	       config.cddb_config.use_http);
+    {
+      gchar *cddb_server = (gchar *) config_read (CONF_CDDB_SERVER);
+      gint cddb_port = (gint) config_read (CONF_CDDB_PORT);
+      gbool cddb_use_http = (gbool) config_read (CONF_CDDB_USEHTTP);
+      err = do_cddb (
+		     &result, &category, tracknum, duration, offset,
+		     cddb_server, cddb_port, cddb_use_http);
+    }
 
   main_window_handler (MW_UPDATE_STATUSBAR, _("Grabbing Completed..."), NULL);
   while (gtk_events_pending ())
